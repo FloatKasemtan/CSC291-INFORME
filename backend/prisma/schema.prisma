@@ -1,0 +1,88 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  email        String
+  password     String
+  type         UserType
+  Student      Student?       @relation("StudentOnUser")
+  Lecturer     Lecturer?      @relation("LecturerOnUser")
+  UserReported UserReported[] @relation("UserReportedOnUser")
+}
+
+model UserClass {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  student_id String
+  student    Student @relation(references: [id], fields: [student_id])
+  course_id  String
+  course     Course  @relation(references: [id], fields: [course_id])
+}
+
+model Course {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  code        String
+  lecturer_id String
+  lecturer    Lecturer    @relation(references: [id], fields: [lecturer_id], name: "CourseOnLecturer")
+  UserClass   UserClass[]
+}
+
+model Student {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  user_id      String         @unique
+  user         User           @relation(references: [id], fields: [user_id], name: "StudentOnUser")
+  firstname    String
+  lastname     String
+  year         String
+  generation   String
+  advisor_id   String
+  advisor      Lecturer       @relation(references: [id], fields: [advisor_id], name: "StudentOnLecturer")
+  created_at   DateTime
+  updated_at   DateTime
+  UserReported UserReported[] @relation("UserReportedOnStudent")
+  UserClass    UserClass[]
+}
+
+model Lecturer {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String    @unique
+  user       User      @relation(references: [id], fields: [user_id], name: "LecturerOnUser")
+  firstname  String
+  lastname   String
+  created_at DateTime
+  updated_at DateTime
+  Student    Student[] @relation("StudentOnLecturer")
+  Course     Course[]  @relation("CourseOnLecturer")
+}
+
+model UserReported {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String
+  user        User     @relation(references: [id], fields: [user_id], name: "UserReportedOnUser")
+  sender_id   String
+  sender      Student  @relation(references: [id], fields: [sender_id], name: "UserReportedOnStudent")
+  created_at  DateTime
+  topic       String
+  description String
+  status      Status
+}
+
+enum UserType {
+  STUDENT
+  LECTURER
+}
+
+enum Status {
+  DRAFT
+  SENT
+  VIEWED
+  APPROVED
+}

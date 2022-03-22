@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:informe/services/constaints.dart';
+import 'constants.dart';
 
 class DioInstance {
   late Dio dio;

@@ -41,6 +41,7 @@ model Student {
   user         User           @relation(references: [id], fields: [user_id], name: "StudentOnUser")
   firstname    String
   lastname     String
+  student_id   String         @unique
   year         String
   generation   String
   advisor_id   String

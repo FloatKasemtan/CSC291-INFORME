@@ -42,6 +42,7 @@ model Student {
   firstname    String
   lastname     String
   student_id   String         @unique
+  banchelor    String
   year         String
   generation   String
   advisor_id   String

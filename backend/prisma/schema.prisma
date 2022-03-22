@@ -55,15 +55,16 @@ model Student {
 }
 
 model Lecturer {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  user_id    String    @unique
-  user       User      @relation(references: [id], fields: [user_id], name: "LecturerOnUser")
-  firstname  String
-  lastname   String
-  created_at DateTime
-  updated_at DateTime
-  Student    Student[] @relation("StudentOnLecturer")
-  Course     Course[]  @relation("CourseOnLecturer")
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  user_id      String         @unique
+  user         User           @relation(references: [id], fields: [user_id], name: "LecturerOnUser")
+  firstname    String
+  lastname     String
+  created_at   DateTime
+  updated_at   DateTime
+  Student      Student[]      @relation("StudentOnLecturer")
+  Course       Course[]       @relation("CourseOnLecturer")
+  UserReported UserReported[] @relation("UserReportedOnLecturer")
 }
 
 model UserReported {
@@ -72,6 +73,8 @@ model UserReported {
   user        User     @relation(references: [id], fields: [user_id], name: "UserReportedOnUser")
   sender_id   String
   sender      Student  @relation(references: [id], fields: [sender_id], name: "UserReportedOnStudent")
+  receiver_id String
+  receiver    Lecturer @relation(references: [id], fields: [receiver_id], name: "UserReportedOnLecturer")
   created_at  DateTime
   topic       String
   description String

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ReportForm extends StatefulWidget {
-  const ReportForm({ Key? key }) : super(key: key);
+  const ReportForm({Key? key}) : super(key: key);
   static const routeName = "/report-form";
 
   @override
@@ -11,8 +11,6 @@ class ReportForm extends StatefulWidget {
 class _ReportFormState extends State<ReportForm> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }

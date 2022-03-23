@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
-        '/': (context) => GetStart(),
+        '/': (context) => Home(),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
         Home.routeName: (context) => Home(),

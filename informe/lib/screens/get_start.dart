@@ -11,8 +11,8 @@ class GetStart extends StatefulWidget {
 class _GetStartState extends State<GetStart> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-
+    return Scaffold(
+      body: Text("sad"),
     );
   }
 }

@@ -22,7 +22,7 @@ void main() {
       child: const MyApp(),
     ),
   );
-  DioInstance().init();
+  // DioInstance().init();
 }
 
 class MyApp extends StatelessWidget {
@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
-        '/': (context) => Home(),
+        '/': (context) => GetStart(),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
         Home.routeName: (context) => Home(),

@@ -10,6 +10,7 @@ import 'package:informe/screens/schedule.dart';
 import 'package:informe/screens/sign_in.dart';
 import 'package:informe/services/dio.dart';
 import 'package:informe/services/provider.dart';
+import 'package:informe/widgets/common/navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,10 +27,31 @@ void main() {
   // DioInstance().init();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  static List<Widget> screen = <Widget>[
+    Home(),
+    Courses(),
+    Schedule(),
+    Report()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +71,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/': (context) => Home(),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
         Home.routeName: (context) => Home(),
@@ -59,6 +80,14 @@ class MyApp extends StatelessWidget {
         Report.routeName: (context) => Report(),
         ReportForm.routeName: (context) => ReportForm(),
       },
+      home: Scaffold(
+        backgroundColor: const Color(0xFF161D3A),
+        body: screen.elementAt(_selectedIndex),
+        bottomNavigationBar: CustomNavigatorBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
+      ),
     );
   }
 }

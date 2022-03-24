@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:informe/screens/courses.dart';
-import 'package:informe/screens/report.dart';
-import 'package:informe/screens/schedule.dart';
-import 'package:informe/widgets/common/gradient_icon.dart';
-import 'package:informe/widgets/common/navigation_bar.dart';
 import 'package:informe/widgets/common/under_construction.dart';
 import 'package:informe/widgets/home/logout_button.dart';
 import 'package:informe/widgets/home/profile.dart';

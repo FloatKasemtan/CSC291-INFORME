@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/screens/course_info.dart';
@@ -24,7 +27,18 @@ void main() {
       child: const MyApp(),
     ),
   );
-  // DioInstance().init();
+  DioInstance.init();
+  getHttp();
+}
+
+void getHttp() async {
+  try {
+    var response = await DioInstance.dio.get('/api');
+    // print(response.data['date']);
+    // print("hello");
+  } catch (e) {
+    print(e);
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -46,15 +60,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   static List<Widget> screen = <Widget>[
-    Home(),
-    Courses(),
-    Schedule(),
-    Report()
+    const Home(),
+    const Courses(),
+    const Schedule(),
+    const Report()
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,

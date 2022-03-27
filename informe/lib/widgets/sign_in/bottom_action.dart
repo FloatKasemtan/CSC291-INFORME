@@ -11,9 +11,9 @@ class BottomAction extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-              text: 'Login',
+              text: 'Signup Now',
               style: TextStyle(
-                color: Colors.blue,
+                color: Colors.white,
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
@@ -22,9 +22,9 @@ class BottomAction extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-              text: 'Login',
+              text: 'Forgot Password?',
               style: TextStyle(
-                color: Colors.blue,
+                color: Colors.white
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {

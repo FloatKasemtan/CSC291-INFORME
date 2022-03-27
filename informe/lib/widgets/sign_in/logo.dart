@@ -6,7 +6,13 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Logo"),
+      child: Column(
+        children: <Widget>[
+          // Image.asset(
+          //   'assets/logoindex.png',
+          // ),
+        ],
+      ),
     );
   }
 }

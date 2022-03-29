@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/undercon.png
     - assets/logoindex.png
+    - assets/background.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

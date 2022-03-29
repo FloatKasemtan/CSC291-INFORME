@@ -83,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       routes: {
+        "/": (context) => GetStart(),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
         Home.routeName: (context) => Home(),
@@ -92,14 +93,14 @@ class _MyAppState extends State<MyApp> {
         Report.routeName: (context) => Report(),
         ReportForm.routeName: (context) => ReportForm(),
       },
-      home: Scaffold(
-        backgroundColor: const Color(0xFF161D3A),
-        body: screen.elementAt(_selectedIndex),
-        bottomNavigationBar: CustomNavigatorBar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ),
-      ),
+      // home: Scaffold(
+      //   backgroundColor: const Color(0xFF161D3A),
+      //   body: screen.elementAt(_selectedIndex),
+      //   bottomNavigationBar: CustomNavigatorBar(
+      //     selectedIndex: _selectedIndex,
+      //     onItemTapped: _onItemTapped,
+      //   ),
+      // ),
     );
   }
 }

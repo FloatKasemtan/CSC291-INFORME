@@ -27,7 +27,13 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF161D3A),
-      body: Padding(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("background.png"),
+              fit: BoxFit.cover,
+              opacity: 0.25),
+        ),
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
@@ -45,20 +51,22 @@ class _SignInState extends State<SignIn> {
             //               begin: Alignment.centerLeft,
             //               end: Alignment.centerRight,
             //               colors: [Colors.purple, Colors.blue])))
+
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
               ),
               child: Ink(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: <Color>[
-                      Color(0xFF245679),
-                      Color(0xFF173651),
+                      Color(0xFF00B5FF),
+                      Color(0xFF07A0FF),
+                      Color(0xFF2D55E2),
                     ],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -69,7 +77,7 @@ class _SignInState extends State<SignIn> {
                   padding: const EdgeInsets.all(8),
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: Text(
-                    "aaa",
+                    "Log in",
                     style: GoogleFonts.poppins(fontSize: 18),
                     textAlign: TextAlign.center,
                   ),

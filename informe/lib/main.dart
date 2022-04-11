@@ -71,16 +71,19 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
-          bodyText1: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 14,
-          ),
-          bodyText2: GoogleFonts.poppins(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+            bodyText1: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+            bodyText2: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+            headline1: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w500)),
       ),
       routes: {
         SignIn.routeName: (context) => SignIn(),
@@ -93,6 +96,7 @@ class _MyAppState extends State<MyApp> {
         ReportForm.routeName: (context) => ReportForm(),
       },
       home: Scaffold(
+        // appBar: AppBar(),
         backgroundColor: const Color(0xFF161D3A),
         body: screen.elementAt(_selectedIndex),
         bottomNavigationBar: CustomNavigatorBar(

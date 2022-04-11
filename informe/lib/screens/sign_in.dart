@@ -49,7 +49,7 @@ class _SignInState extends State<SignIn> {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Home.routeName);
+                Navigator.of(context).pushNamed("/landing");
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:informe/models/report.dart';
 import 'package:informe/screens/course_info.dart';
 import 'package:informe/screens/courses.dart';
 import 'package:informe/screens/get_start.dart';
@@ -25,12 +26,12 @@ void main() {
     ),
   );
   DioInstance.init();
-  getHttp();
+  // getHttp();
 }
 
 void getHttp() async {
   try {
-    var response = await DioInstance.dio.get('/api');
+    // var response = await DioInstance.dio.get('/api');
     // print(response.data['date']);
     // print("hello");
   } catch (e) {
@@ -60,7 +61,16 @@ class _MyAppState extends State<MyApp> {
     const Home(),
     const Courses(),
     const Schedule(),
-    const Report()
+    Report(data: [
+      ReportModel("xxxxxx", "CSCxxx", Status.sent),
+      ReportModel("xxxxxx", "CSCxxx", Status.viewed),
+      ReportModel("xxxxxx", "CSCxxx", Status.approved),
+      ReportModel("xxxxxx", "CSCxxx", Status.draft),
+      ReportModel("xxxxxx", "CSCxxx", Status.sent),
+      ReportModel("xxxxxx", "CSCxxx", Status.viewed),
+      ReportModel("xxxxxx", "CSCxxx", Status.approved),
+      ReportModel("xxxxxx", "CSCxxx", Status.draft),
+    ]),
   ];
 
   @override
@@ -71,6 +81,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
+            labelMedium: GoogleFonts.poppins(color: Colors.black, fontSize: 18),
             bodyText1: GoogleFonts.poppins(
               color: Colors.white,
               fontSize: 14,
@@ -86,24 +97,33 @@ class _MyAppState extends State<MyApp> {
                 fontWeight: FontWeight.w500)),
       ),
       routes: {
+        "/": (context) => Scaffold(
+              // appBar: AppBar(),
+              backgroundColor: const Color(0xFF161D3A),
+              body: screen.elementAt(_selectedIndex),
+              bottomNavigationBar: CustomNavigatorBar(
+                selectedIndex: _selectedIndex,
+                onItemTapped: _onItemTapped,
+              ),
+            ),
+        "/landing": (context) => Scaffold(
+              // appBar: AppBar(),
+              backgroundColor: const Color(0xFF161D3A),
+              body: screen.elementAt(_selectedIndex),
+              bottomNavigationBar: CustomNavigatorBar(
+                selectedIndex: _selectedIndex,
+                onItemTapped: _onItemTapped,
+              ),
+            ),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
         Home.routeName: (context) => Home(),
         Courses.routeName: (context) => Courses(),
         CourseInfo.routeName: (context) => CourseInfo(),
         Schedule.routeName: (context) => Schedule(),
-        Report.routeName: (context) => Report(),
+        Report.routeName: (context) => Report(data: []),
         ReportForm.routeName: (context) => ReportForm(),
       },
-      home: Scaffold(
-        // appBar: AppBar(),
-        backgroundColor: const Color(0xFF161D3A),
-        body: screen.elementAt(_selectedIndex),
-        bottomNavigationBar: CustomNavigatorBar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ),
-      ),
     );
   }
 }

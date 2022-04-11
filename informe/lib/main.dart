@@ -25,17 +25,6 @@ void main() {
     ),
   );
   DioInstance.init();
-  getHttp();
-}
-
-void getHttp() async {
-  try {
-    var response = await DioInstance.dio.get('/api');
-    // print(response.data['date']);
-    // print("hello");
-  } catch (e) {
-    print(e);
-  }
 }
 
 class MyApp extends StatefulWidget {

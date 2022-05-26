@@ -13,8 +13,10 @@ class NextButton extends StatelessWidget {
           right: 25,
           left: 25,
         ),
-        child: (ElevatedButton(
-          onPressed: () {},
+        child: (ElevatedButton
+          onPressed: () {
+            Navigator.of(context).pushNamed(SignIn.routeName);
+          },
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(0),
             shape: RoundedRectangleBorder(

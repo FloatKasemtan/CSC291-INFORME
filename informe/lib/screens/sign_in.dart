@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/screens/courses.dart';
 import 'package:informe/screens/get_start.dart';
+import 'package:informe/screens/home.dart';
 import 'package:informe/widgets/sign_in/bottom_action.dart';
 import 'package:informe/widgets/sign_in/custom_textform.dart';
 import 'package:informe/widgets/sign_in/logo.dart';
@@ -53,7 +54,9 @@ class _SignInState extends State<SignIn> {
             //               colors: [Colors.purple, Colors.blue])))
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed("/landing");
+              },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(0),
                 shape: RoundedRectangleBorder(

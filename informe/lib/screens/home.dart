@@ -14,21 +14,35 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Profile(
-            studentId: "63130500237",
-            firstname: "Kasemtan",
-            lastname: "Tevasirichokchai",
-            banchelor: "Computer Science",
-            picture:
-                "https://scontent.fbkk22-3.fna.fbcdn.net/v/t39.30808-6/272189473_4868661459916486_3850036912764138839_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeElZlkqRCrMjXY7KJb7Yb1Jzyyi7l8sybHPLKLuXyzJsfdZcIWA3QUMEJ8EbN5XslrmXaXJOtau9zTdbZ5VDr56&_nc_ohc=DLT826L3jUEAX8mKSMV&_nc_ht=scontent.fbkk22-3.fna&oh=00_AT9dO8tWEO-_YL8jdC0ngBCmmCqOeADNjgjN3tVsT57ZuA&oe=62408F18"),
-        LogoutButton(),
-        SizedBox(
-          height: 20,
-        ),
-        UnderConstruction()
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30),
+      child: Column(
+        children: [
+          Column(
+            children: const [
+              Profile(
+                  studentId: "63130500237",
+                  firstname: "Kasemtan",
+                  lastname: "Tevasirichokchai",
+                  banchelor: "Computer Science",
+                  picture:
+                      "https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg"),
+              LogoutButton(),
+            ],
+          ),
+          Container(
+            // height: MediaQuery.of(context).size.height - 173,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                UnderConstruction(),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

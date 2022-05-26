@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/report.dart';
 import 'package:informe/screens/course_info.dart';
-import 'package:informe/screens/courses.dart';
+import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
-import 'package:informe/screens/home.dart';
-import 'package:informe/screens/report.dart';
+import 'package:informe/widgets/home.dart';
+import 'package:informe/widgets/report.dart';
 import 'package:informe/screens/report_form.dart';
-import 'package:informe/screens/schedule.dart';
+import 'package:informe/widgets/schedule.dart';
 import 'package:informe/screens/sign_in.dart';
 import 'package:informe/services/dio.dart';
 import 'package:informe/services/provider.dart';
@@ -104,14 +104,14 @@ class _MyAppState extends State<MyApp> {
                 onItemTapped: _onItemTapped,
               ),
             ),
+        CourseInfo.routeName: (context) => CourseInfo(
+            args: ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>),
         SignIn.routeName: (context) => SignIn(),
         GetStart.routeName: (context) => GetStart(),
-        Home.routeName: (context) => Home(),
-        Courses.routeName: (context) => Courses(),
-        CourseInfo.routeName: (context) => CourseInfo(),
-        Schedule.routeName: (context) => Schedule(),
-        Report.routeName: (context) => Report(data: []),
-        ReportForm.routeName: (context) => ReportForm(),
+        ReportForm.routeName: (context) => ReportForm(
+            args: ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>),
       },
     );
   }

@@ -8,14 +8,13 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 50,
-        right: 25,
-        left: 25,
+        top: 25,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'logoindex.png',
+            'assets/logoindex.png',
             width: 130,
             height: 115,
           ),

@@ -9,8 +9,8 @@ class CustomTextForm extends StatefulWidget {
 }
 
 class _CustomTextFormState extends State<CustomTextForm> {
-  var _controller = TextEditingController();
-  var _controller1 = TextEditingController();
+  final _controller = TextEditingController();
+  final _controller1 = TextEditingController();
   void _clearTextField(TextEditingController controller) {
     // Clear everything in the text field
     controller.clear();
@@ -28,12 +28,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 155,
-        right: 25,
-        left: 25,
-        bottom: 80,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           TextFormField(
@@ -42,11 +37,11 @@ class _CustomTextFormState extends State<CustomTextForm> {
             }),
             controller: _controller,
             decoration: InputDecoration(
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.assignment_ind_rounded,
                 color: Color(0xFF141D3B),
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(
                   Radius.circular(18),
@@ -57,7 +52,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
               //   Icons.assignment_ind_rounded,
               //   color: Colors.white,
               // ),
-              fillColor: Color.fromARGB(130, 255, 255, 255),
+              fillColor: const Color.fromARGB(130, 255, 255, 255),
               filled: true,
               // suffixIcon: Padding(
               //   padding: EdgeInsets.all(0),
@@ -67,7 +62,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
                   ? null
                   : IconButton(
                       onPressed: (() => _clearTextField(_controller)),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.clear,
                         color: Colors.black54,
                       ),
@@ -76,7 +71,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.normal,
-              color: Color(0xFF141D3B),
+              color: const Color(0xFF141D3B),
             ),
             cursorColor: Colors.black54,
           ),
@@ -93,18 +88,18 @@ class _CustomTextFormState extends State<CustomTextForm> {
               }),
               controller: _controller1,
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.key_rounded,
                   color: Color(0xFF141D3B),
                 ),
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(
                     Radius.circular(18),
                   ),
                 ),
                 hintText: 'Password',
-                fillColor: Color.fromARGB(130, 255, 255, 255),
+                fillColor: const Color.fromARGB(130, 255, 255, 255),
                 filled: true,
                 // suffixIcon: Padding(
                 //   padding: EdgeInsets.all(0),
@@ -114,7 +109,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
                     ? null
                     : IconButton(
                         onPressed: (() => _clearTextField1(_controller1)),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.clear,
                           color: Colors.black54,
                         ),
@@ -126,7 +121,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.normal,
-                color: Color(0xFF141D3B),
+                color: const Color(0xFF141D3B),
               ),
 
               cursorColor: Colors.black54,

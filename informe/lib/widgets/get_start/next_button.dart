@@ -13,7 +13,7 @@ class NextButton extends StatelessWidget {
           right: 25,
           left: 25,
         ),
-        child: (ElevatedButton
+        child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).pushNamed(SignIn.routeName);
           },
@@ -45,7 +45,7 @@ class NextButton extends StatelessWidget {
               ),
             ),
           ),
-        ))
+        )
 
         // child: TextButton(
         //   child: Text(

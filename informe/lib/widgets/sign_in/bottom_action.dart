@@ -6,13 +6,7 @@ class BottomAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 255,
-        right: 25,
-        left: 25,
-      ),
-      child: Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           RichText(
@@ -36,7 +30,6 @@ class BottomAction extends StatelessWidget {
                   }),
           ),
         ],
-      ),
-    );
+      );
   }
 }

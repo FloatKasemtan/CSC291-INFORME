@@ -6,32 +6,37 @@ class BottomAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        RichText(
-          text: TextSpan(
-              text: 'Login',
-              style: TextStyle(
-                color: Colors.blue,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  print('Login Text Clicked');
-                }),
-        ),
-        RichText(
-          text: TextSpan(
-              text: 'Login',
-              style: TextStyle(
-                color: Colors.blue,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  print('Login Text Clicked');
-                }),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 255,
+        right: 25,
+        left: 25,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RichText(
+            text: TextSpan(
+                text: 'Sign up Now',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    print('Login Text Clicked');
+                  }),
+          ),
+          RichText(
+            text: TextSpan(
+                text: 'Forgot Password?',
+                style: TextStyle(color: Colors.white),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    print('Login Text Clicked');
+                  }),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -44,7 +44,8 @@ class ReportCard extends StatelessWidget {
                           height: 12,
                         ),
                         Text(
-                          "Class: ${reportModel.atclass}",
+                          "Class: ${reportModel.course.code}",
+                          overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.labelMedium,
                         )
                       ],

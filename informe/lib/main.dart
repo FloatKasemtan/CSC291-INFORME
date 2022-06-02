@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/models/user.dart';
 import 'package:informe/screens/course_info.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
@@ -51,14 +53,50 @@ class _MyAppState extends State<MyApp> {
     const Courses(),
     const Schedule(),
     Report(data: [
-      ReportModel("xxxxxx", "CSCxxx", Status.sent),
-      ReportModel("xxxxxx", "CSCxxx", Status.viewed),
-      ReportModel("xxxxxx", "CSCxxx", Status.approved),
-      ReportModel("xxxxxx", "CSCxxx", Status.draft),
-      ReportModel("xxxxxx", "CSCxxx", Status.sent),
-      ReportModel("xxxxxx", "CSCxxx", Status.viewed),
-      ReportModel("xxxxxx", "CSCxxx", Status.approved),
-      ReportModel("xxxxxx", "CSCxxx", Status.draft),
+      ReportModel(
+          user: User(
+              email: "",
+              firstname: "firstname",
+              id: "1",
+              lastname: "lastname",
+              userType: UserType.lecturer),
+          topic: "Teaching problem",
+          status: Status.sent,
+          course:
+              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
+      ReportModel(
+          user: User(
+              email: "",
+              firstname: "firstname",
+              id: "1",
+              lastname: "lastname",
+              userType: UserType.lecturer),
+          topic: "Teaching problem",
+          status: Status.viewed,
+          course:
+              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
+      ReportModel(
+          user: User(
+              email: "",
+              firstname: "firstname",
+              id: "1",
+              lastname: "lastname",
+              userType: UserType.lecturer),
+          topic: "Teaching problem",
+          status: Status.approved,
+          course:
+              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
+      ReportModel(
+          user: User(
+              email: "",
+              firstname: "firstname",
+              id: "1",
+              lastname: "lastname",
+              userType: UserType.lecturer),
+          topic: "Teaching problem",
+          status: Status.draft,
+          course:
+              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
     ]),
   ];
 
@@ -79,6 +117,10 @@ class _MyAppState extends State<MyApp> {
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.w700,
+            ),
+            subtitle1: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 16,
             ),
             headline1: GoogleFonts.poppins(
                 color: Colors.white,

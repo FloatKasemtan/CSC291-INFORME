@@ -7,20 +7,20 @@ class User {
   @JsonKey(required: true)
   String id;
 
-  String firstname;
+  String? firstname;
 
-  String lastname;
+  String? lastname;
 
-  String email;
+  String? email;
 
-  UserType userType;
+  UserType? userType;
 
   User(
-      {required this.email,
-      required this.firstname,
+      {this.email,
+      this.firstname,
       required this.id,
-      required this.lastname,
-      required this.userType});
+      this.lastname,
+      this.userType});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

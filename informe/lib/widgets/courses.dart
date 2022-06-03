@@ -1,4 +1,7 @@
 import "package:flutter/material.dart";
+import 'package:informe/models/course.dart';
+import 'package:informe/models/report.dart';
+import 'package:informe/models/user.dart';
 import 'package:informe/screens/report_form.dart';
 
 class Courses extends StatelessWidget {
@@ -11,18 +14,16 @@ class Courses extends StatelessWidget {
       child: ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, ReportForm.routeName, arguments: {
-              "course": {
-                "id": "1",
-                "name": "Hello Programming",
-                "code": "CSCxxx"
-              },
-              "user": {
-                "id": "1",
-                "firstname": "Kasemtan",
-                "lastname": "Tevasirichokchai",
-                "email": "Kasemtan@mail.com",
-                "userType": "lecturer",
-              },
+              "reportModel": ReportModel(
+                user: User(
+                    id: "1",
+                    email: "Kasemtan@mail.com",
+                    firstname: "Kasemtan",
+                    lastname: "Tevasirichokchai",
+                    userType: UserType.lecturer),
+                course:
+                    Course(name: "Hello Programming", code: "CSC333", id: "1"),
+              ),
             });
           },
           child: Text("Test")),

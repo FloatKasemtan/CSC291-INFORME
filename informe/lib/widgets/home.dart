@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
               LogoutButton(),
             ],
           ),
-          Container(
+          Expanded(
             // height: MediaQuery.of(context).size.height - 173,
             child: Column(
               mainAxisSize: MainAxisSize.max,

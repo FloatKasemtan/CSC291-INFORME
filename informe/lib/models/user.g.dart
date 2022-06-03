@@ -12,11 +12,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
     requiredKeys: const ['id'],
   );
   return User(
-    email: json['email'] as String,
-    firstname: json['firstname'] as String,
+    email: json['email'] as String?,
+    firstname: json['firstname'] as String?,
     id: json['id'] as String,
-    lastname: json['lastname'] as String,
-    userType: $enumDecode(_$UserTypeEnumMap, json['userType']),
+    lastname: json['lastname'] as String?,
+    userType: $enumDecodeNullable(_$UserTypeEnumMap, json['userType']),
   );
 }
 

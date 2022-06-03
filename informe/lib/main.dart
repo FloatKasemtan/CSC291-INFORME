@@ -4,6 +4,7 @@ import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
 import 'package:informe/models/user.dart';
 import 'package:informe/screens/course_info.dart';
+import 'package:informe/screens/report_description.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
 import 'package:informe/widgets/home.dart';
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
     const Schedule(),
     Report(data: [
       ReportModel(
+          description: "Hello",
           user: User(
               email: "",
               firstname: "firstname",
@@ -65,6 +67,7 @@ class _MyAppState extends State<MyApp> {
           course:
               Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
       ReportModel(
+          description: "This is a description",
           user: User(
               email: "",
               firstname: "firstname",
@@ -87,6 +90,7 @@ class _MyAppState extends State<MyApp> {
           course:
               Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
       ReportModel(
+          description: "Hello",
           user: User(
               email: "",
               firstname: "firstname",
@@ -122,6 +126,8 @@ class _MyAppState extends State<MyApp> {
               color: Colors.white,
               fontSize: 16,
             ),
+            headline2: GoogleFonts.poppins(
+                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
             headline1: GoogleFonts.poppins(
                 color: Colors.white,
                 fontSize: 24,
@@ -154,6 +160,9 @@ class _MyAppState extends State<MyApp> {
         ReportForm.routeName: (context) => ReportForm(
             args: ModalRoute.of(context)!.settings.arguments
                 as Map<String, dynamic>),
+        ReportInfo.routeName: (context) => ReportInfo(
+            args: ModalRoute.of(context)!.settings.arguments
+                as Map<String, dynamic>)
       },
     );
   }

@@ -1,3 +1,4 @@
+import 'package:informe/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'course.g.dart';
@@ -5,13 +6,19 @@ part 'course.g.dart';
 @JsonSerializable()
 class Course {
   @JsonKey(required: true)
-  final String id;
+  String? id;
 
-  final String name;
+  String? name;
 
-  final String code;
+  String? code;
 
-  Course({required this.id, required this.name, required this.code});
+  User? lecturer;
+
+  String? start;
+
+  String? end;
+
+  Course({this.id, this.name, this.code, this.lecturer, this.end, this.start});
 
   factory Course.fromJson(Map<String, dynamic> json) => _$CourseFromJson(json);
 

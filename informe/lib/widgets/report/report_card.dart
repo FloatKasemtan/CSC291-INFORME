@@ -21,7 +21,7 @@ class ReportCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20))),
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
-            onTap: reportModel.status == Status.draft ? () {} : null,
+            onTap: () => navigateHandler(reportModel, context),
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -93,5 +93,15 @@ class ReportCard extends StatelessWidget {
       const Color(0xffDF2262)
     ];
     return colorList[i];
+  }
+
+  navigateHandler(ReportModel reportModel, BuildContext context) {
+    if (reportModel.status == Status.draft) {
+      Navigator.pushNamed(context, "/report-form",
+          arguments: {"reportModel": reportModel});
+    } else {
+      Navigator.pushNamed(context, "/report-info",
+          arguments: {"reportModel": reportModel});
+    }
   }
 }

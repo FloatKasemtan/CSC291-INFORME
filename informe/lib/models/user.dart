@@ -15,12 +15,18 @@ class User {
 
   UserType? userType;
 
+  String? tel;
+
+  String? microsoftTeams;
+
   User(
       {this.email,
       this.firstname,
       required this.id,
       this.lastname,
-      this.userType});
+      this.userType,
+      this.microsoftTeams,
+      this.tel});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

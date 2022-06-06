@@ -34,7 +34,7 @@ class _ReportFormState extends State<ReportForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "${reportModel.course.code} ${reportModel.course.name}",
+          "${reportModel.course.code}: ${reportModel.course.name}",
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.subtitle1,
         ),

@@ -20,6 +20,11 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
         : User.fromJson(json['lecturer'] as Map<String, dynamic>),
     end: json['end'] as String?,
     start: json['start'] as String?,
+    date: json['date'] as String?,
+    students: (json['students'] as List<dynamic>?)
+            ?.map((e) => Student.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        const [],
   );
 }
 
@@ -28,6 +33,8 @@ Map<String, dynamic> _$CourseToJson(Course instance) => <String, dynamic>{
       'name': instance.name,
       'code': instance.code,
       'lecturer': instance.lecturer,
+      'date': instance.date,
       'start': instance.start,
       'end': instance.end,
+      'students': instance.students,
     };

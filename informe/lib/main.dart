@@ -110,6 +110,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.blue,
         textTheme: TextTheme(
             labelMedium: GoogleFonts.poppins(color: Colors.black, fontSize: 18),

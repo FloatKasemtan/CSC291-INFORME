@@ -1,28 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user.dart';
+part of 'student.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-User _$UserFromJson(Map<String, dynamic> json) {
+Student _$StudentFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
     requiredKeys: const ['id'],
   );
-  return User(
+  return Student(
+    id: json['id'] as String,
     email: json['email'] as String?,
     firstname: json['firstname'] as String?,
-    id: json['id'] as String,
     lastname: json['lastname'] as String?,
-    userType: $enumDecodeNullable(_$UserTypeEnumMap, json['userType']),
     microsoftTeams: json['microsoftTeams'] as String?,
     tel: json['tel'] as String?,
-  );
+    generation: json['generation'] as int?,
+    studentId: json['studentId'] as String?,
+    year: json['year'] as int?,
+  )..userType = $enumDecodeNullable(_$UserTypeEnumMap, json['userType']);
 }
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$StudentToJson(Student instance) => <String, dynamic>{
       'id': instance.id,
       'firstname': instance.firstname,
       'lastname': instance.lastname,
@@ -30,6 +32,9 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'userType': _$UserTypeEnumMap[instance.userType],
       'tel': instance.tel,
       'microsoftTeams': instance.microsoftTeams,
+      'studentId': instance.studentId,
+      'year': instance.year,
+      'generation': instance.generation,
     };
 
 const _$UserTypeEnumMap = {

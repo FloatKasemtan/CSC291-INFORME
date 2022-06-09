@@ -1,13 +1,13 @@
-import { login } from "@/services/Auth";
+import { login, getUser } from "@/services/Auth";
 import { responseHandler } from "@/services/Handler";
 import express from "express";
 // eslint-disable-next-line new-cap
 const authRoute = express.Router();
 
-// Profile
-authRoute.get("/", (req, res) => {
+// get user Profile
+authRoute.get("/me", async (req, res) => {
 	// return res.send(`Auth route ${nanoid(64)}`);
-	return res.json(req.user);
+	return responseHandler(res, await getUser(req.user.user_id));
 });
 
 // Login

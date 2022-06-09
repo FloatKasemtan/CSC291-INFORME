@@ -33,3 +33,11 @@ export const login = async (email, password) => {
 		HttpStatus.OK
 	);
 };
+
+export const getUser = async (userId) => {
+	// unauthenticated user
+	return genericError("Not implemented", HttpStatus.UNAUTHORIZED);
+
+	// authenticated user and return user profile
+	return infoResponse({}, "Get User Success", HttpStatus.OK);
+};

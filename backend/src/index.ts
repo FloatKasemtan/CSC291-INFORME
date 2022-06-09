@@ -5,9 +5,12 @@ import express from "express";
 import cors from "cors";
 import jwt from "express-jwt";
 import cookieParser from "cookie-parser";
+import { PrismaClient } from "@prisma/client";
 
 /** Routes */
 import authRoute from "@/routes/auth";
+import courseRoute from "./routes/course";
+import reportRoute from "./routes/report";
 
 /** Misc */
 import config from "./config";
@@ -69,8 +72,8 @@ app.use(
 
 /** Routes */
 app.use("/auth", authRoute);
-
-import { PrismaClient } from "@prisma/client";
+app.use("/course", courseRoute);
+app.use("/report", reportRoute);
 
 const prisma = new PrismaClient();
 

@@ -1,6 +1,7 @@
 import { ReportPost } from "@/interface/api/ReportPost";
 import { login } from "@/services/Auth";
 import { responseHandler } from "@/services/Handler";
+import { createReport } from "@/services/Report";
 import express from "express";
 // eslint-disable-next-line new-cap
 const reportRoute = express.Router();
@@ -11,9 +12,9 @@ reportRoute.get("/", async (req, res) => {
 });
 
 // post a report information (when user report a user) create a draft report
-reportRoute.post("/", (req, res) => {
+reportRoute.post("/", async (req, res) => {
 	const body: ReportPost = req.body;
-	return res.json(req.user);
+	return responseHandler(res, await createReport(body));
 });
 
 // get a report information

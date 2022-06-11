@@ -6,6 +6,7 @@ import cors from "cors";
 import jwt from "express-jwt";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
+import { faker } from "@faker-js/faker";
 
 /** Routes */
 import authRoute from "@/routes/auth";
@@ -88,17 +89,139 @@ app.get("/", async (req, res) => {
 	// 		},
 	// 	})
 	// 	.catch((...e) => console.log(...e));
-	// const users = await prisma.user
-	// 	.create({
-	// 		data: {
-	// 			email: "sirawit.cssit@mail.kmutt.ac.th",
-	// 			password: "123456",
-	// 			type: "STUDENT",
-	// 		},
-	// 	})
-	// 	.catch((...e) => console.log(...e));
-	// return res.json(users);
+	const users = await prisma.user
+		.create({
+			data: {
+				firstname: "John",
+				lastname: "Doe",
+				email: "sirawit.cssit@mail.kmutt.ac.th",
+				password: "123456",
+				type: "STUDENT",
+				Student: {
+					create: {
+						year: 2,
+						generation: "SIT12",
+						advisor: {
+							create: {
+								user: {
+									create: {
+										email: "Lecturer@mail.com",
+										firstname: "Sarah",
+										lastname: "Doe",
+										password: "12345678",
+										type: "LECTURER",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		})
+		.catch((...e) => console.log(...e));
+	return res.json(users);
 	return res.send("It works 🚀");
+});
+
+app.get("/faker/lecturer", async (req, res) => {
+	const lecturers = await prisma.user.create({
+		data: {
+			email: faker.internet.email(),
+			firstname: faker.name.firstName(),
+			lastname: faker.name.lastName(),
+			password: faker.internet.password(),
+			type: "LECTURER",
+			Lecturer: {
+				create: {
+					Course: {
+						createMany: {
+							data: [
+								{
+									code:
+										"CSC" +
+										faker.datatype.number({
+											min: 100,
+											max: 999,
+										}),
+									name: faker.name.jobTitle(),
+									schedule: {
+										day: "MON",
+										start: "08:00",
+										end: "13:00",
+									},
+								},
+								{
+									code:
+										"CSC" +
+										faker.datatype.number({
+											min: 100,
+											max: 999,
+										}),
+									name: faker.name.jobTitle(),
+									schedule: {
+										day: "MON",
+										start: "08:00",
+										end: "13:00",
+									},
+								},
+							],
+						},
+					},
+				},
+			},
+		},
+	});
+	return res.json(lecturers);
+});
+
+app.get("/flecturer", async (req, res) => {
+	const lecturers = await prisma.lecturer.update({
+		where: {
+			id: "62a4580410ff5a06771e8ff7",
+		},
+		data: {
+			Course: {
+				connect: {
+					id: "62a4580410ff5a06771e8ff8",
+				},
+			},
+		},
+	});
+	return res.json(lecturers);
+});
+
+app.get("/faker/student", async (req, res) => {
+	try {
+		const user = await prisma.user.create({
+			data: {
+				email: faker.internet.email(),
+				firstname: faker.name.firstName(),
+				lastname: faker.name.lastName(),
+				password: faker.internet.password(),
+				type: "STUDENT",
+				Student: {
+					create: {
+						advisor: {
+							connect: {
+								id: "62a46567281215e4b20eab63",
+							},
+						},
+						generation: "SIT13",
+						year: 3,
+						UserClass: {
+							create: {
+								course_id: "62a46567281215e4b20eab64",
+							},
+						},
+					},
+				},
+			},
+		});
+
+		return res.json(user);
+	} catch (error) {
+		return res.send({ error: error.message });
+	}
 });
 
 /** Start a server */

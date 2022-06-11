@@ -23,11 +23,18 @@ export const createReport = async (body: ReportPost) => {
 						id: body.user_reported_id,
 					},
 				},
+				course: {
+					connect: {
+						id: body.course_id,
+					},
+				},
 			},
 		});
 
 		return infoResponse(report, "User Reported", HttpStatus.OK);
 	} catch (error) {
+		console.log(error.message);
+
 		return genericError(error.message, HttpStatus.BAD_REQUEST);
 	}
 };

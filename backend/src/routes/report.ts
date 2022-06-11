@@ -1,3 +1,4 @@
+import { ReportPost } from "@/interface/api/ReportPost";
 import { login } from "@/services/Auth";
 import { responseHandler } from "@/services/Handler";
 import express from "express";
@@ -11,7 +12,7 @@ reportRoute.get("/", async (req, res) => {
 
 // post a report information (when user report a user) create a draft report
 reportRoute.post("/", (req, res) => {
-	// return res.send(`Auth route ${nanoid(64)}`);
+	const body: ReportPost = req.body;
 	return res.json(req.user);
 });
 

@@ -27,12 +27,13 @@ model UserClass {
 }
 
 model Course {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  code        String
-  lecturer_id String
-  lecturer    Lecturer    @relation(references: [id], fields: [lecturer_id], name: "CourseOnLecturer")
-  UserClass   UserClass[]
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  code         String
+  lecturer_id  String
+  lecturer     Lecturer       @relation(references: [id], fields: [lecturer_id], name: "CourseOnLecturer")
+  UserClass    UserClass[]
+  UserReported UserReported[]
 }
 
 model Student {
@@ -69,6 +70,8 @@ model UserReported {
   user        User     @relation(references: [id], fields: [user_id], name: "UserReportedOnUser")
   sender_id   String
   sender      Student  @relation(references: [id], fields: [sender_id], name: "UserReportedOnStudent")
+  course_id   String
+  course      Course   @relation(references: [id], fields: [course_id], name: "UserReportedOnCourse")
   created_at  DateTime
   topic       String
   description String

@@ -5,14 +5,17 @@ import express from "express";
 import { ReportModel } from "@/interface/api/ReportModel";
 
 /** Services */
-import { login } from "@/services/Auth";
 import { responseHandler } from "@/services/Handler";
 import {
 	createReport,
+	deleteReport,
 	getReport,
 	listReported,
 	updateReport,
 } from "@/services/Report";
+
+/** Middleware */
+import { isReportAuthorized } from "@/middlewares/auth";
 
 const reportRoute = express.Router();
 
@@ -32,6 +35,8 @@ reportRoute.get("/:id", async (req, res) => {
 	return responseHandler(res, await getReport(req.params.id, req));
 });
 
+reportRoute.use("/:id", isReportAuthorized);
+
 // update a report information (when submitted)
 reportRoute.put("/:id", async (req, res) => {
 	const body: ReportModel = req.body;
@@ -40,7 +45,7 @@ reportRoute.put("/:id", async (req, res) => {
 
 // delete a report
 reportRoute.delete("/:id", async (req, res) => {
-	return res.json();
+	return responseHandler(res, await deleteReport(req.params.id));
 });
 
 export default reportRoute;

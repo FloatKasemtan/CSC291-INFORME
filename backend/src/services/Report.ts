@@ -138,21 +138,6 @@ export const updateReport = async (
 	req: Express.Request
 ) => {
 	try {
-		try {
-			await prisma.userReported.findFirst({
-				where: {
-					AND: [
-						{ id: report_id },
-						{ sender: { user_id: req.user.id } },
-					],
-				},
-				rejectOnNotFound(error) {
-					return error;
-				},
-			});
-		} catch (error) {
-			return genericError("User unauthorized", HttpStatus.UNAUTHORIZED);
-		}
 		await prisma.userReported.update({
 			where: {
 				id: report_id,
@@ -167,5 +152,33 @@ export const updateReport = async (
 		return infoResponse(null, "Report updated", HttpStatus.OK);
 	} catch (error) {
 		return genericError(error.message, HttpStatus.BAD_REQUEST);
+	}
+};
+
+export const deleteReport = async (report_id: string) => {
+	try {
+		const report = await prisma.userReported.delete({
+			where: {
+				id: report_id,
+			},
+		});
+		return infoResponse(report, "Report deleted", HttpStatus.OK);
+	} catch (error) {
+		return genericError(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+};
+
+const isReportAuthorized = async (report_id: string, req: Express.Request) => {
+	try {
+		await prisma.userReported.findFirst({
+			where: {
+				AND: [{ id: report_id }, { sender: { user_id: req.user.id } }],
+			},
+			rejectOnNotFound(error) {
+				return error;
+			},
+		});
+	} catch (error) {
+		return genericError("User unauthorized", HttpStatus.UNAUTHORIZED);
 	}
 };

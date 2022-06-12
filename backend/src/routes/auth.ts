@@ -12,6 +12,8 @@ authRoute.get("/me", async (req, res) => {
 
 // Login
 authRoute.post("/login", async (req, res) => {
+	console.log(req.body.email, req.body.password);
+
 	return responseHandler(res, await login(req.body.email, req.body.password));
 });
 

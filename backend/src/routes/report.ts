@@ -1,14 +1,14 @@
 import { ReportPost } from "@/interface/api/ReportPost";
 import { login } from "@/services/Auth";
 import { responseHandler } from "@/services/Handler";
-import { createReport } from "@/services/Report";
+import { createReport, getReport, listReported } from "@/services/Report";
 import express from "express";
 // eslint-disable-next-line new-cap
 const reportRoute = express.Router();
 
 // get reports list that user reported
 reportRoute.get("/", async (req, res) => {
-	return responseHandler(res, await login(req.body.email, req.body.password));
+	return responseHandler(res, await listReported(req));
 });
 
 // post a report information (when user report a user) create a draft report
@@ -18,9 +18,8 @@ reportRoute.post("/", async (req, res) => {
 });
 
 // get a report information
-reportRoute.get("/:id", (req, res) => {
-	// return res.send(`Auth route ${nanoid(64)}`);
-	return res.json(req.user);
+reportRoute.get("/:id", async (req, res) => {
+	return responseHandler(res, await getReport(req.query.id, req));
 });
 
 // update a report information (when submitted)

@@ -5,11 +5,11 @@ import { genericError, infoResponse } from "./Handler";
 
 const prisma = new PrismaClient();
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string) => {
 	const user = await prisma.user.findFirst({
 		where: {
-			email,
-			password,
+			email: email,
+			password: password,
 		},
 	});
 
@@ -34,10 +34,24 @@ export const login = async (email, password) => {
 	);
 };
 
-export const getUser = async (userId) => {
-	// unauthenticated user
-	return genericError("Not implemented", HttpStatus.UNAUTHORIZED);
+export const getUser = async (user_id) => {
+	try {
+		// fetch user info from db
+		// unauthenticated user
+		const user = await prisma.user.findFirst({
+			where: {
+				id: user_id,
+			},
+		});
+		if (!user) {
+			return genericError("Not implemented", HttpStatus.UNAUTHORIZED);
+		}
 
-	// authenticated user and return user profile
-	return infoResponse({}, "Get User Success", HttpStatus.OK);
+		delete user["password"];
+
+		// authenticated user and return user profile
+		return infoResponse(user, "Get User Success", HttpStatus.OK);
+	} catch (error) {
+		return genericError(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 };

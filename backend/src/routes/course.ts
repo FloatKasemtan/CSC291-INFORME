@@ -1,4 +1,5 @@
 import { login } from "@/services/Auth";
+import { getCourse } from "@/services/Course";
 import { responseHandler } from "@/services/Handler";
 import express from "express";
 // eslint-disable-next-line new-cap
@@ -10,9 +11,9 @@ courseRoute.get("/", async (req, res) => {
 });
 
 // get course information
-courseRoute.get("/:id", (req, res) => {
+courseRoute.get("/:id", async (req, res) => {
 	// return res.send(`Auth route ${nanoid(64)}`);
-	return res.json(req.user);
+	return responseHandler(res, await getCourse(req.params.id));
 });
 
 // get student profile

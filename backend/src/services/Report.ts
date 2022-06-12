@@ -1,16 +1,20 @@
-import { ReportPost } from "@/interface/api/ReportPost";
-import HttpStatus from "@/utils/httpStatus";
+/** Internal Modules */
 import { PrismaClient } from "@prisma/client";
+
+/** Models */
+import { ReportModel } from "@/interface/api/ReportModel";
+
+/** Utils */
+import HttpStatus from "@/utils/httpStatus";
+
+/** Services */
 import { genericError, infoResponse } from "./Handler";
 
 const prisma = new PrismaClient();
 
-export const listReported = async (req) => {
+export const listReported = async (req: Express.Request) => {
 	try {
 		const reports = await prisma.userReported.findMany({
-			where: {
-				sender_id: req.user.user_id,
-			},
 			select: {
 				id: true,
 				course: {
@@ -23,6 +27,34 @@ export const listReported = async (req) => {
 				status: true,
 				topic: true,
 				updated_at: true,
+				sender: true,
+			},
+			where: {
+				OR: [
+					// Fetch all reports of user that is sender
+					{
+						sender: {
+							user_id: req.user.id,
+						},
+					},
+					// If user is advisor of sender, fetch all reports that is not draft
+					{
+						AND: [
+							{
+								sender: {
+									advisor: {
+										user_id: req.user.id,
+									},
+								},
+							},
+							{
+								status: {
+									not: "DRAFT",
+								},
+							},
+						],
+					},
+				],
 			},
 		});
 		return infoResponse(reports, "Report listed", HttpStatus.OK);
@@ -31,7 +63,7 @@ export const listReported = async (req) => {
 	}
 };
 
-export const createReport = async (body: ReportPost) => {
+export const createReport = async (body: ReportModel) => {
 	try {
 		const report = await prisma.userReported.create({
 			data: {
@@ -65,61 +97,75 @@ export const createReport = async (body: ReportPost) => {
 	}
 };
 
-export const getReport = async (report_id, req) => {
+export const getReport = async (report_id: string, req: Express.Request) => {
 	try {
 		const report = await prisma.userReported.findFirst({
-			where: {
-				id: report_id,
-				sender: {},
-			},
 			include: {
 				sender: true,
 			},
+			where: {
+				AND: [
+					{
+						id: report_id,
+					},
+					{
+						sender: {
+							OR: [
+								// if user is advisor of sender
+								{
+									advisor: {
+										user_id: req.user.id,
+									},
+								},
+								// if user is sender
+								{ user_id: req.user.id },
+							],
+						},
+					},
+				],
+			},
 		});
 		console.log(report);
-
-		//check association of user
-		const user = await prisma.user.findFirst({
-			where: {
-				id: req.user.id,
-			},
-			include: {
-				Student: true,
-				Lecturer: true,
-			},
-		});
-		console.log(user);
-
-		try {
-			if (user.type === "STUDENT") {
-				await prisma.userClass.findFirst({
-					where: {
-						course_id: report.course_id,
-						student_id: user.Student.id,
-					},
-					rejectOnNotFound(error) {
-						return error;
-					},
-				});
-			} else if (
-				user.type === "LECTURER" &&
-				report.sender.advisor_id !== user.Lecturer.id
-			) {
-				return genericError(
-					"User not authorized to view this report",
-					HttpStatus.BAD_REQUEST
-				);
-			} else {
-				return genericError(
-					"User type not found",
-					HttpStatus.NOT_FOUND
-				);
-			}
-		} catch (error) {
-			return genericError(error.message, HttpStatus.BAD_REQUEST);
-		}
 		return infoResponse(report, "Report found", HttpStatus.OK);
 	} catch (error) {
 		return genericError(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+};
+
+export const updateReport = async (
+	report_id: string,
+	body: ReportModel,
+	req: Express.Request
+) => {
+	try {
+		try {
+			await prisma.userReported.findFirst({
+				where: {
+					AND: [
+						{ id: report_id },
+						{ sender: { user_id: req.user.id } },
+					],
+				},
+				rejectOnNotFound(error) {
+					return error;
+				},
+			});
+		} catch (error) {
+			return genericError("User unauthorized", HttpStatus.UNAUTHORIZED);
+		}
+		await prisma.userReported.update({
+			where: {
+				id: report_id,
+			},
+			data: {
+				updated_at: new Date(),
+				description: body.description,
+				topic: body.topic,
+				status: body.status,
+			},
+		});
+		return infoResponse(null, "Report updated", HttpStatus.OK);
+	} catch (error) {
+		return genericError(error.message, HttpStatus.BAD_REQUEST);
 	}
 };

@@ -7,7 +7,7 @@ const authRoute = express.Router();
 // get user Profile
 authRoute.get("/me", async (req, res) => {
 	// return res.send(`Auth route ${nanoid(64)}`);
-	return responseHandler(res, await getUser(req.user.user_id));
+	return responseHandler(res, await getUser(req.user.id));
 });
 
 // Login

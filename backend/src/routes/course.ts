@@ -1,5 +1,5 @@
 import { login } from "@/services/Auth";
-import { getCourse } from "@/services/Course";
+import { getCourse, listCourses } from "@/services/Course";
 import { responseHandler } from "@/services/Handler";
 import express from "express";
 // eslint-disable-next-line new-cap
@@ -7,7 +7,7 @@ const courseRoute = express.Router();
 
 // get courses that user is enrolled in
 courseRoute.get("/", async (req, res) => {
-	return responseHandler(res, await login(req.body.email, req.body.password));
+	return responseHandler(res, await listCourses(req));
 });
 
 // get course information

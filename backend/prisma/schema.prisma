@@ -9,15 +9,17 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  email        String
-  password     String
-  firstname    String
-  lastname     String
-  type         UserType
-  Student      Student?       @relation("StudentOnUser")
-  Lecturer     Lecturer?      @relation("LecturerOnUser")
-  UserReported UserReported[] @relation("UserReportedOnUser")
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  email          String
+  microsoft_team String?
+  tel            String?
+  password       String
+  firstname      String
+  lastname       String
+  type           UserType
+  Student        Student?       @relation("StudentOnUser")
+  Lecturer       Lecturer?      @relation("LecturerOnUser")
+  UserReported   UserReported[] @relation("UserReportedOnUser")
 }
 
 model UserClass {
@@ -41,6 +43,7 @@ model Course {
 
 model Student {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  student_id   String         @unique
   user_id      String         @unique @db.ObjectId
   user         User           @relation(references: [id], fields: [user_id], name: "StudentOnUser")
   year         Int

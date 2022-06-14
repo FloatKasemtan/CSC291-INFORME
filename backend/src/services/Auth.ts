@@ -6,32 +6,48 @@ import { genericError, infoResponse } from "./Handler";
 const prisma = new PrismaClient();
 
 export const login = async (email: string, password: string) => {
-	const user = await prisma.user.findFirst({
-		where: {
-			email: email,
-			password: password,
-		},
-	});
+	try {
+		if (!email || !password) {
+			return genericError(
+				"Email and password are required",
+				HttpStatus.BAD_REQUEST
+			);
+		}
+		const user = await prisma.user.findFirst({
+			where: {
+				AND: [
+					{
+						email: email,
+					},
+					{
+						password: password,
+					},
+				],
+			},
+		});
 
-	if (!user)
-		return genericError(
-			"Invalid email or password",
-			HttpStatus.UNAUTHORIZED
+		if (!user)
+			return genericError(
+				"Invalid email or password",
+				HttpStatus.UNAUTHORIZED
+			);
+
+		delete user["password"];
+
+		return infoResponse(
+			{
+				token: jwt.sign(
+					{ id: user.id, type: user.type },
+					process.env.JWT_SECRET
+				),
+				user,
+			},
+			"Login Success",
+			HttpStatus.OK
 		);
-
-	delete user["password"];
-
-	return infoResponse(
-		{
-			token: jwt.sign(
-				{ id: user.id, type: user.type },
-				process.env.JWT_SECRET
-			),
-			user,
-		},
-		"Login Success",
-		HttpStatus.OK
-	);
+	} catch (error) {
+		return genericError(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 };
 
 export const getUser = async (user_id) => {

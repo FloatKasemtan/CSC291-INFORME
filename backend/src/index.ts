@@ -79,6 +79,21 @@ app.use("/report", reportRoute);
 const prisma = new PrismaClient();
 
 // for testing only
+// app.get("/qwe", async (req, res) => {
+// 	await prisma.user.updateMany({
+// 		data: {
+// 			tel: faker.phone.phoneNumber(),
+// 		},
+// 	});
+// 	await prisma.user.updateMany({
+// 		data: {
+// 			microsoft_team: faker.internet.userName(),
+// 		},
+// 		where: {
+// 			type: "LECTURER",
+// 		},
+// 	});
+// });
 app.get("/", async (req, res) => {
 	// const users = await prisma.user
 	// 	.findMany({
@@ -99,6 +114,9 @@ app.get("/", async (req, res) => {
 				type: "STUDENT",
 				Student: {
 					create: {
+						student_id:
+							"630500" +
+							faker.datatype.number({ min: 100, max: 999 }),
 						year: 2,
 						generation: "SIT12",
 						advisor: {
@@ -201,6 +219,9 @@ app.get("/faker/student", async (req, res) => {
 				type: "STUDENT",
 				Student: {
 					create: {
+						student_id:
+							"630500" +
+							faker.datatype.number({ min: 100, max: 999 }),
 						advisor: {
 							connect: {
 								id: "62a46567281215e4b20eab63",

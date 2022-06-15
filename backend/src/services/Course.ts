@@ -77,6 +77,8 @@ export const getCourse = async (course_id: string) => {
 								firstname: true,
 								lastname: true,
 								email: true,
+								tel: true,
+								microsoft_team: true,
 							},
 						},
 					},

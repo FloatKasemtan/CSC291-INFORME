@@ -1,16 +1,22 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:informe/models/response/info_response.dart';
+import 'package:informe/services/api/user_service.dart';
+import 'package:informe/services/share_preference.dart';
+import 'package:informe/widgets/common/alert.dart';
 
 class CustomTextForm extends StatefulWidget {
-  const CustomTextForm({Key? key}) : super(key: key);
+  const CustomTextForm({Key? key, required this.email, required this.password})
+      : super(key: key);
+  final TextEditingController email;
+  final TextEditingController password;
 
   @override
   State<CustomTextForm> createState() => _CustomTextFormState();
 }
 
 class _CustomTextFormState extends State<CustomTextForm> {
-  final _controller = TextEditingController();
-  final _controller1 = TextEditingController();
   void _clearTextField(TextEditingController controller) {
     // Clear everything in the text field
     controller.clear();
@@ -35,10 +41,10 @@ class _CustomTextFormState extends State<CustomTextForm> {
             onChanged: ((value) {
               setState(() {});
             }),
-            controller: _controller,
+            controller: widget.email,
             decoration: InputDecoration(
               prefixIcon: const Icon(
-                Icons.assignment_ind_rounded,
+                Icons.person,
                 color: Color(0xFF141D3B),
               ),
               border: const OutlineInputBorder(
@@ -47,7 +53,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
                   Radius.circular(18),
                 ),
               ),
-              hintText: 'Username',
+              hintText: 'Email',
               // icon: Icon(
               //   Icons.assignment_ind_rounded,
               //   color: Colors.white,
@@ -58,10 +64,10 @@ class _CustomTextFormState extends State<CustomTextForm> {
               //   padding: EdgeInsets.all(0),
               //   child: Icon(Icons.clear),
               // ),
-              suffixIcon: _controller.text.isEmpty
+              suffixIcon: widget.email.text.isEmpty
                   ? null
                   : IconButton(
-                      onPressed: (() => _clearTextField(_controller)),
+                      onPressed: (() => _clearTextField(widget.email)),
                       icon: const Icon(
                         Icons.clear,
                         color: Colors.black54,
@@ -86,7 +92,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
               onChanged: ((value) {
                 setState(() {});
               }),
-              controller: _controller1,
+              controller: widget.password,
               decoration: InputDecoration(
                 prefixIcon: const Icon(
                   Icons.key_rounded,
@@ -105,10 +111,10 @@ class _CustomTextFormState extends State<CustomTextForm> {
                 //   padding: EdgeInsets.all(0),
                 //   child: Icon(Icons.clear),
                 // ),
-                suffixIcon: _controller1.text.isEmpty
+                suffixIcon: widget.password.text.isEmpty
                     ? null
                     : IconButton(
-                        onPressed: (() => _clearTextField1(_controller1)),
+                        onPressed: (() => _clearTextField1(widget.password)),
                         icon: const Icon(
                           Icons.clear,
                           color: Colors.black54,

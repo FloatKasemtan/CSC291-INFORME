@@ -5,6 +5,8 @@ import 'package:informe/models/report.dart';
 import 'package:informe/models/user.dart';
 import 'package:informe/screens/course_info.dart';
 import 'package:informe/screens/report_description.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
 import 'package:informe/widgets/home.dart';
@@ -21,6 +23,7 @@ void main() {
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
     /// can use [MyApp] while mocking the providers
+    ///
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
@@ -28,6 +31,7 @@ void main() {
       child: const MyApp(),
     ),
   );
+  SharePreference.init();
   DioInstance.init();
 }
 
@@ -135,15 +139,7 @@ class _MyAppState extends State<MyApp> {
                 fontWeight: FontWeight.w500)),
       ),
       routes: {
-        "/": (context) => Scaffold(
-              // appBar: AppBar(),
-              backgroundColor: const Color(0xFF161D3A),
-              body: screen.elementAt(_selectedIndex),
-              bottomNavigationBar: CustomNavigatorBar(
-                selectedIndex: _selectedIndex,
-                onItemTapped: _onItemTapped,
-              ),
-            ),
+        "/": (context) => GetStart(),
         "/landing": (context) => Scaffold(
               // appBar: AppBar(),
               backgroundColor: const Color(0xFF161D3A),
@@ -156,7 +152,7 @@ class _MyAppState extends State<MyApp> {
         CourseInfo.routeName: (context) => CourseInfo(
             args: ModalRoute.of(context)!.settings.arguments
                 as Map<String, dynamic>),
-        SignIn.routeName: (context) => SignIn(),
+        SignIn.routeName: (context) => const SignIn(),
         GetStart.routeName: (context) => GetStart(),
         ReportForm.routeName: (context) => ReportForm(
             args: ModalRoute.of(context)!.settings.arguments

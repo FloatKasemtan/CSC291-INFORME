@@ -46,6 +46,7 @@ model Student {
   student_id   String         @unique
   user_id      String         @unique @db.ObjectId
   user         User           @relation(references: [id], fields: [user_id], name: "StudentOnUser")
+  banchelor    String
   year         Int
   generation   String
   advisor_id   String         @db.ObjectId

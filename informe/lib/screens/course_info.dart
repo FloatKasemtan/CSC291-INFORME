@@ -29,6 +29,7 @@ class _CourseInfoState extends State<CourseInfo> {
         students: [
           Student(
             id: "1",
+            banchelor: "Banchelor",
             firstname: "Kasem",
             lastname: "Tevasirichokchai",
             email: "float@mail.com",
@@ -39,6 +40,7 @@ class _CourseInfoState extends State<CourseInfo> {
           ),
           Student(
             id: "1",
+            banchelor: "Banchelor",
             firstname: "Kasem1",
             lastname: "Tevasirichokchai",
             email: "float@mail.com",
@@ -49,6 +51,7 @@ class _CourseInfoState extends State<CourseInfo> {
           ),
           Student(
             id: "1",
+            banchelor: "Banchelor",
             firstname: "Kasem2",
             lastname: "Tevasirichokchai",
             email: "float@mail.com",
@@ -60,6 +63,7 @@ class _CourseInfoState extends State<CourseInfo> {
           Student(
             id: "1",
             firstname: "Kasem3",
+            banchelor: "Banchelor",
             lastname: "Tevasirichokchai",
             email: "float@mail.com",
             generation: 12,
@@ -70,6 +74,7 @@ class _CourseInfoState extends State<CourseInfo> {
           Student(
             id: "1",
             firstname: "Kasem4",
+            banchelor: "Banchelor",
             lastname: "Tevasirichokchai",
             email: "float@mail.com",
             generation: 12,

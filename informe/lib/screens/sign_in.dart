@@ -1,5 +1,14 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:informe/models/response/info_response.dart';
+import 'package:informe/models/user.dart';
+import 'package:informe/services/api/user_service.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
+import 'package:informe/widgets/common/alert.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
 import 'package:informe/widgets/home.dart';
@@ -16,16 +25,37 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  var baba = "SAd";
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
-  void click(String text) {
-    setState(() {
-      baba = text;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    SharePreference.prefs.clear();
+    super.initState();
+  }
+
+  void loginHandler() async {
+    try {
+      var response = await UserService.login(_email.text, _password.text);
+      if (response is InfoResponse) {
+        SharePreference.prefs
+            .setString(SharePreferenceConstants.token, response.data["token"]);
+        print(response.data["token"]);
+        SharePreference.prefs.setBool(SharePreferenceConstants.isLecturer,
+            User.fromJson(response.data["user"]).userType == UserType.lecturer);
+
+        Navigator.of(context).pushNamed("/landing");
+      }
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _email.text = 'Bartholome.Sporer@yahoo.com';
+    _password.text = 'XwdwwU2Bj_bMYBw';
     return Scaffold(
       backgroundColor: const Color(0xFF161D3A),
       body: Container(
@@ -45,13 +75,13 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomTextForm(),
+                  CustomTextForm(email: _email, password: _password),
                   // SizedBox(
                   //   height: 50,
                   // ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed("/landing");
+                      loginHandler();
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(0),
@@ -86,22 +116,10 @@ class _SignInState extends State<SignIn> {
                   // SizedBox(
                   //   height: 50,
                   // ),
-                  BottomAction()
+                  const BottomAction()
                 ],
               ),
             )
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => const Courses()),
-            //       );
-            //     },
-            //     child: Text("Log in"),decoration: BoxDecoration(
-            //           gradient: LinearGradient(
-            //               begin: Alignment.centerLeft,
-            //               end: Alignment.centerRight,
-            //               colors: [Colors.purple, Colors.blue])))
           ],
         ),
       ),

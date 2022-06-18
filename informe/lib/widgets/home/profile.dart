@@ -45,7 +45,7 @@ class Profile extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
-                  "Banchelor of " + banchelor,
+                  banchelor,
                   style: Theme.of(context).textTheme.bodyText1,
                 )
               ],

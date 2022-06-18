@@ -58,6 +58,14 @@ export const getUser = async (user_id) => {
 			where: {
 				id: user_id,
 			},
+			select: {
+				email: true,
+				firstname: true,
+				lastname: true,
+				type: true,
+				Lecturer: true,
+				Student: true,
+			},
 		});
 		if (!user) {
 			return genericError("Not implemented", HttpStatus.UNAUTHORIZED);

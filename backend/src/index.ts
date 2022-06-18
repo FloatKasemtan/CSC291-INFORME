@@ -118,6 +118,7 @@ app.get("/", async (req, res) => {
 							"630500" +
 							faker.datatype.number({ min: 100, max: 999 }),
 						year: 2,
+						banchelor: faker.name.jobTitle(),
 						generation: "SIT12",
 						advisor: {
 							create: {
@@ -219,6 +220,7 @@ app.get("/faker/student", async (req, res) => {
 				type: "STUDENT",
 				Student: {
 					create: {
+						banchelor: faker.name.jobTitle(),
 						student_id:
 							"630500" +
 							faker.datatype.number({ min: 100, max: 999 }),

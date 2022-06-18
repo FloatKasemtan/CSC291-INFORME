@@ -14,7 +14,8 @@ class Student extends User {
       String? tel = "",
       this.generation,
       this.studentId,
-      this.year})
+      this.year,
+      required this.banchelor})
       : super(
             id: id,
             email: email,
@@ -26,9 +27,11 @@ class Student extends User {
   String? studentId;
   int? year;
   int? generation;
+  String banchelor;
 
   factory Student.fromJson(Map<String, dynamic> json) =>
       _$StudentFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$StudentToJson(this);
 }

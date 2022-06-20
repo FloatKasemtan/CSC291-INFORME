@@ -19,6 +19,7 @@ export const listReported = async (req: Express.Request) => {
 				id: true,
 				course: {
 					select: {
+						id: true,
 						code: true,
 						name: true,
 					},
@@ -27,7 +28,17 @@ export const listReported = async (req: Express.Request) => {
 				status: true,
 				topic: true,
 				updated_at: true,
-				sender: true,
+				user: {
+					select: {
+						email: true,
+						firstname: true,
+						lastname: true,
+						id: true,
+						type: true,
+						tel: true,
+						microsoft_team: true,
+					},
+				},
 			},
 			where: {
 				OR: [

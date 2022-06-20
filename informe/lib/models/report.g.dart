@@ -8,8 +8,9 @@ part of 'report.dart';
 
 ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
       topic: json['topic'] as String? ?? "",
-      status:
-          $enumDecodeNullable(_$StatusEnumMap, json['status']) ?? Status.empty,
+      status: $enumDecodeNullable(
+              _$StatusEnumMap, json['status'].toString().toLowerCase()) ??
+          Status.empty,
       description: json['description'] as String? ?? "",
       course: Course.fromJson(json['course'] as Map<String, dynamic>),
       user: User.fromJson(json['user'] as Map<String, dynamic>),

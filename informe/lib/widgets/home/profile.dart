@@ -32,7 +32,7 @@ class Profile extends StatelessWidget {
             radius: 35,
           ),
           Container(
-            margin: const EdgeInsets.only(left: 8),
+            margin: const EdgeInsets.only(left: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

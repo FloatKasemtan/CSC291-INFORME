@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/screens/sign_in.dart';
+import 'package:informe/services/constants.dart';
 import 'package:informe/services/share_preference.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -8,8 +9,10 @@ class LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextButton(
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(primary: Colors.red[300]),
         child: Text(
           "Log out",
           style: GoogleFonts.poppins(
@@ -20,7 +23,8 @@ class LogoutButton extends StatelessWidget {
         ),
         onPressed: () {
           // Clear user token
-          SharePreference.prefs.clear();
+          SharePreference.prefs.remove(SharePreferenceConstants.token);
+          SharePreference.prefs.remove(SharePreferenceConstants.isLecturer);
           Navigator.of(context).pushNamed(SignIn.routeName);
         },
       ),

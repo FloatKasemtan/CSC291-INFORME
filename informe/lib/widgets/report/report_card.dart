@@ -35,21 +35,25 @@ class ReportCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(reportModel.topic,
-                            style: Theme.of(context).textTheme.labelMedium),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          "Class: ${reportModel.course.code}",
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        )
-                      ],
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(reportModel.topic,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.labelMedium),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Text(
+                            "Class: ${reportModel.course.code}",
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelMedium,
+                          )
+                        ],
+                      ),
                     ),
                     reportModel.status == Status.draft
                         ? Row(

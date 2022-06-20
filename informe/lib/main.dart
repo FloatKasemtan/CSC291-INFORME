@@ -1,12 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/models/response/error_response.dart';
+import 'package:informe/models/response/info_response.dart';
 import 'package:informe/models/user.dart';
 import 'package:informe/screens/course_info.dart';
 import 'package:informe/screens/report_description.dart';
+import 'package:informe/services/api/report_service.dart';
 import 'package:informe/services/constants.dart';
 import 'package:informe/services/share_preference.dart';
+import 'package:informe/widgets/common/alert.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
 import 'package:informe/widgets/home.dart';
@@ -46,6 +51,14 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
 
   int _selectedIndex = 0;
+  late List<ReportModel> reports = [];
+  late bool reportLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -57,55 +70,7 @@ class _MyAppState extends State<MyApp> {
     const Home(),
     const Courses(),
     const Schedule(),
-    Report(data: [
-      ReportModel(
-          description: "Hello",
-          user: User(
-              email: "",
-              firstname: "firstname",
-              id: "1",
-              lastname: "lastname",
-              userType: UserType.lecturer),
-          topic: "Teaching problem",
-          status: Status.sent,
-          course:
-              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
-      ReportModel(
-          description: "This is a description",
-          user: User(
-              email: "",
-              firstname: "firstname",
-              id: "1",
-              lastname: "lastname",
-              userType: UserType.lecturer),
-          topic: "Teaching problem",
-          status: Status.viewed,
-          course:
-              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
-      ReportModel(
-          user: User(
-              email: "",
-              firstname: "firstname",
-              id: "1",
-              lastname: "lastname",
-              userType: UserType.lecturer),
-          topic: "Teaching problem",
-          status: Status.approved,
-          course:
-              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
-      ReportModel(
-          description: "Hello",
-          user: User(
-              email: "",
-              firstname: "firstname",
-              id: "1",
-              lastname: "lastname",
-              userType: UserType.lecturer),
-          topic: "Teaching problem",
-          status: Status.draft,
-          course:
-              Course(id: "1", name: "Introduction to flutter", code: "CSC123")),
-    ]),
+    const Report(),
   ];
 
   @override
@@ -139,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                 fontWeight: FontWeight.w500)),
       ),
       routes: {
-        "/": (context) => GetStart(),
+        "/": (context) => const GetStart(),
         "/landing": (context) => Scaffold(
               // appBar: AppBar(),
               backgroundColor: const Color(0xFF161D3A),

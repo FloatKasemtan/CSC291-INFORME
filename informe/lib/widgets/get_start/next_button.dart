@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/screens/sign_in.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
 
 class NextButton extends StatelessWidget {
   const NextButton({Key? key}) : super(key: key);
+
+  void handleNext() {
+    SharePreference.prefs.setBool(SharePreferenceConstants.isFirst, true);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(
-          top: 400,
           right: 25,
           left: 25,
         ),
         child: ElevatedButton(
           onPressed: () {
+            handleNext();
             Navigator.of(context).pushNamed(SignIn.routeName);
           },
           style: ElevatedButton.styleFrom(

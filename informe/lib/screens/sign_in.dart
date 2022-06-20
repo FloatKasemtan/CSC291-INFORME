@@ -28,11 +28,27 @@ class _SignInState extends State<SignIn> {
   final _email = TextEditingController();
   final _password = TextEditingController();
 
+  void getProfile() async {
+    try {
+      final response = await UserService.getProfile();
+      if (response is InfoResponse) {
+        Navigator.pushNamed(context, '/landing');
+      }
+    } on DioError catch (e) {
+      SharePreference.prefs.remove(SharePreferenceConstants.token);
+      SharePreference.prefs.remove(SharePreferenceConstants.isLecturer);
+      Alert.errorAlert(e, context);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-    SharePreference.prefs.clear();
     super.initState();
+    if (SharePreference.prefs.getString(SharePreferenceConstants.token) !=
+        null) {
+      getProfile();
+    }
   }
 
   void loginHandler() async {
@@ -41,13 +57,14 @@ class _SignInState extends State<SignIn> {
       if (response is InfoResponse) {
         SharePreference.prefs
             .setString(SharePreferenceConstants.token, response.data["token"]);
-        print(response.data["token"]);
         SharePreference.prefs.setBool(SharePreferenceConstants.isLecturer,
             User.fromJson(response.data["user"]).userType == UserType.lecturer);
 
         Navigator.of(context).pushNamed("/landing");
       }
     } on DioError catch (e) {
+      SharePreference.prefs.remove(SharePreferenceConstants.token);
+      SharePreference.prefs.remove(SharePreferenceConstants.isLecturer);
       Alert.errorAlert(e, context);
     }
   }

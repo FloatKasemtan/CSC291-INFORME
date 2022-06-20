@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:informe/models/response/info_response.dart';
+import 'package:informe/screens/sign_in.dart';
 
 class Alert {
   static Future<dynamic> successAlert(
@@ -34,6 +35,27 @@ class Alert {
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (e.response!.statusCode == 401) {
+      return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Something went wrong!'),
+          content: Text(e.message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, 'OK');
+                Navigator.popUntil(
+                    context, ModalRoute.withName(SignIn.routeName));
+              },
               child: const Text('OK'),
             ),
           ],

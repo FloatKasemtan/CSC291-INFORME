@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:informe/screens/sign_in.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
 import 'package:informe/widgets/get_start/next_button.dart';
 import 'package:informe/widgets/get_start/text_welcome.dart';
 
@@ -12,6 +15,16 @@ class GetStart extends StatefulWidget {
 
 class _GetStartState extends State<GetStart> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (SharePreference.prefs.getString(SharePreferenceConstants.isFirst) !=
+        null) {
+      Navigator.pushReplacementNamed(context, SignIn.routeName);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFF161D3A),
@@ -24,7 +37,8 @@ class _GetStartState extends State<GetStart> {
             ),
             padding: const EdgeInsets.all(20),
             child: Column(
-              children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
                 TextWelcome(),
                 NextButton(),
               ],

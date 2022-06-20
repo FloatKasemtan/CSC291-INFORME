@@ -79,7 +79,8 @@ class _HomeState extends State<Home> {
                         banchelor: banchelor,
                         picture:
                             "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"),
-                    LogoutButton(),
+                    const SizedBox(height: 16),
+                    const LogoutButton(),
                   ],
                 ),
                 Expanded(

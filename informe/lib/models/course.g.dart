@@ -17,10 +17,10 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
     code: json['code'] as String?,
     lecturer: json['lecturer'] == null
         ? null
-        : User.fromJson(json['lecturer'] as Map<String, dynamic>),
-    end: json['end'] as String?,
-    start: json['start'] as String?,
-    date: json['date'] as String?,
+        : User.fromJson(json['lecturer']['user'] as Map<String, dynamic>),
+    end: json['schedule']['end'] as String?,
+    start: json['schedule']['start'] as String?,
+    date: json['schedule']['day'] as String?,
     students: (json['students'] as List<dynamic>?)
             ?.map((e) => Student.fromJson(e as Map<String, dynamic>))
             .toList() ??

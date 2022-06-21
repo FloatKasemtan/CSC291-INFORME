@@ -30,7 +30,18 @@ export const listCourses = async (req: Express.Request) => {
 			select: {
 				code: true,
 				id: true,
-				lecturer: true,
+				lecturer: {
+					select: {
+						id: true,
+						user: {
+							select: {
+								id: true,
+								firstname: true,
+								lastname: true,
+							},
+						},
+					},
+				},
 				name: true,
 				schedule: true,
 			},

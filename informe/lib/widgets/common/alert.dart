@@ -53,8 +53,7 @@ class Alert {
             TextButton(
               onPressed: () {
                 Navigator.pop(context, 'OK');
-                Navigator.popUntil(
-                    context, ModalRoute.withName(SignIn.routeName));
+                Navigator.pushReplacementNamed(context, SignIn.routeName);
               },
               child: const Text('OK'),
             ),

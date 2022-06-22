@@ -22,6 +22,7 @@ export const listReported = async (req: Express.Request) => {
 						id: true,
 						code: true,
 						name: true,
+						schedule: true,
 					},
 				},
 				created_at: true,

@@ -85,6 +85,7 @@ export const getCourse = async (course_id: string) => {
 					include: {
 						user: {
 							select: {
+								id: true,
 								firstname: true,
 								lastname: true,
 								email: true,
@@ -97,7 +98,7 @@ export const getCourse = async (course_id: string) => {
 			},
 		});
 
-		return infoResponse({ course, students }, "course fetched");
+		return infoResponse({ ...course, students }, "course fetched");
 	} catch (error) {
 		return genericError(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
 	}

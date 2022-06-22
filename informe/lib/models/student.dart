@@ -26,7 +26,7 @@ class Student extends User {
             userType: UserType.student);
   String? studentId;
   int? year;
-  int? generation;
+  String? generation;
   String banchelor;
 
   factory Student.fromJson(Map<String, dynamic> json) =>

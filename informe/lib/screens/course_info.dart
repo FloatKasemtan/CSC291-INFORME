@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/models/response/info_response.dart';
 import 'package:informe/models/student.dart';
 import 'package:informe/models/user.dart';
 import 'package:informe/screens/report_form.dart';
-import 'package:informe/services/dio.dart';
+import 'package:informe/services/api/course_service.dart';
+import 'package:informe/widgets/common/alert.dart';
 import 'package:informe/widgets/course_info/expansion_card.dart';
 
 class CourseInfo extends StatefulWidget {
@@ -20,78 +23,30 @@ class CourseInfo extends StatefulWidget {
 class _CourseInfoState extends State<CourseInfo> {
   late Course course;
   String dropdownValue = 'None';
+  bool isLoading = true;
+
+  void handleCourse() async {
+    try {
+      final response = await CourseService.getCourse(widget.args!["id"]);
+      if (response is InfoResponse) {
+        print(Course.fromJson(response.data).students![0].microsoftTeams);
+        setState(() {
+          course = Course.fromJson(response.data);
+        });
+      }
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
-    course = Course(
-        name: "Hello",
-        code: "CSC000",
-        students: [
-          Student(
-            id: "1",
-            banchelor: "Banchelor",
-            firstname: "Kasem",
-            lastname: "Tevasirichokchai",
-            email: "float@mail.com",
-            generation: 12,
-            tel: "082-123-4567",
-            studentId: "63130500237",
-            year: 2,
-          ),
-          Student(
-            id: "1",
-            banchelor: "Banchelor",
-            firstname: "Kasem1",
-            lastname: "Tevasirichokchai",
-            email: "float@mail.com",
-            generation: 12,
-            tel: "082-123-4567",
-            studentId: "63130500237",
-            year: 2,
-          ),
-          Student(
-            id: "1",
-            banchelor: "Banchelor",
-            firstname: "Kasem2",
-            lastname: "Tevasirichokchai",
-            email: "float@mail.com",
-            generation: 12,
-            tel: "082-123-4567",
-            studentId: "63130500237",
-            year: 2,
-          ),
-          Student(
-            id: "1",
-            firstname: "Kasem3",
-            banchelor: "Banchelor",
-            lastname: "Tevasirichokchai",
-            email: "float@mail.com",
-            generation: 12,
-            tel: "082-123-4567",
-            studentId: "63130500237",
-            year: 2,
-          ),
-          Student(
-            id: "1",
-            firstname: "Kasem4",
-            banchelor: "Banchelor",
-            lastname: "Tevasirichokchai",
-            email: "float@mail.com",
-            generation: 12,
-            tel: "082-123-4567",
-            studentId: "63130500237",
-            year: 2,
-          )
-        ],
-        lecturer: User(
-            id: "1",
-            firstname: "firstname",
-            lastname: "lastname",
-            email: "email",
-            microsoftTeams: "microsoftTeams",
-            tel: "0921325123",
-            userType: UserType.lecturer));
     super.initState();
+    handleCourse();
   }
 
   void moreInfoHandler(Student student) {
@@ -103,7 +58,7 @@ class _CourseInfoState extends State<CourseInfo> {
                   borderRadius: BorderRadius.circular(10)),
               title: Text(
                 "ID: ${student.studentId!}",
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
               content: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -213,119 +168,124 @@ class _CourseInfoState extends State<CourseInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // fetch course data using course id
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${course.code}: ${course.name}",
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
-        centerTitle: false,
-        backgroundColor: const Color(0xff434465),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(15),
-          ),
-        ),
-      ),
-      backgroundColor: const Color(0xFF161D3A),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Lecturer",
-                style: Theme.of(context).textTheme.bodyText1,
+    return isLoading
+        ? const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : Scaffold(
+            appBar: AppBar(
+              title: Text(
+                "${course.code}: ${course.name}",
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${course.lecturer!.firstname} ${course.lecturer!.lastname}",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        reportHandler(course.lecturer, course);
-                      },
-                      icon: const Icon(Icons.flag_rounded))
-                ],
-              ),
-              ExpansionCard(course: course),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Students",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    height: 30,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: DropdownButton<String>(
-                      dropdownColor: Colors.white,
-                      value: dropdownValue,
-                      icon: const Icon(Icons.arrow_drop_down),
-                      underline: Container(color: Colors.transparent),
-                      iconEnabledColor: Colors.black,
-                      iconDisabledColor: Colors.black,
-                      elevation: 16,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .apply(color: Colors.black),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['None', 'Name', 'ID']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.filter_list_alt,
-                                color: Colors.black,
-                              ),
-                              Text(value),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: const LinearGradient(
-                        colors: [Color(0xff273870), Color(0xff1D284E)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight)),
-                child: Column(
-                  children: buildStudentList(),
+              centerTitle: false,
+              backgroundColor: const Color(0xff434465),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(15),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+              ),
+            ),
+            backgroundColor: const Color(0xFF161D3A),
+            body: Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Lecturer",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${course.lecturer!.firstname} ${course.lecturer!.lastname}",
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              reportHandler(course.lecturer, course);
+                            },
+                            icon: const Icon(Icons.flag_rounded))
+                      ],
+                    ),
+                    ExpansionCard(course: course),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Students",
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          height: 30,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.white,
+                            value: dropdownValue,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            underline: Container(color: Colors.transparent),
+                            iconEnabledColor: Colors.black,
+                            iconDisabledColor: Colors.black,
+                            elevation: 16,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .apply(color: Colors.black),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                              });
+                            },
+                            items: <String>['None', 'Name', 'ID']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.filter_list_alt,
+                                      color: Colors.black,
+                                    ),
+                                    Text(value),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: const LinearGradient(
+                              colors: [Color(0xff273870), Color(0xff1D284E)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight)),
+                      child: Column(
+                        children: buildStudentList(),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 }

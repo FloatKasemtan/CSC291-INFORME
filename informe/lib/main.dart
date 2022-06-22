@@ -1,17 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
-import 'package:informe/models/response/error_response.dart';
-import 'package:informe/models/response/info_response.dart';
-import 'package:informe/models/user.dart';
 import 'package:informe/screens/course_info.dart';
 import 'package:informe/screens/report_description.dart';
-import 'package:informe/services/api/report_service.dart';
-import 'package:informe/services/constants.dart';
 import 'package:informe/services/share_preference.dart';
-import 'package:informe/widgets/common/alert.dart';
 import 'package:informe/widgets/courses.dart';
 import 'package:informe/screens/get_start.dart';
 import 'package:informe/widgets/home.dart';
@@ -53,12 +45,6 @@ class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
   late List<ReportModel> reports = [];
   late bool reportLoading = true;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   void _onItemTapped(int index) {
     setState(() {

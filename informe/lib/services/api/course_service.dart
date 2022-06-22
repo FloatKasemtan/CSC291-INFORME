@@ -16,4 +16,16 @@ class CourseService {
     }
     return InfoResponse.fromJson(response.data);
   }
+
+  static Future<dynamic> getCourse(String courseId) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio.get("/course/$courseId");
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
 }

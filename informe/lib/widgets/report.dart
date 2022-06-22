@@ -19,7 +19,6 @@ class _ReportState extends State<Report> {
   bool isLoading = true;
 
   void handleReport() async {
-    isLoading = true;
     try {
       final response = await ReportService.getReportedList();
       if (response is InfoResponse) {
@@ -31,11 +30,12 @@ class _ReportState extends State<Report> {
           data = tempReport;
         });
       }
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    } finally {
       setState(() {
         isLoading = false;
       });
-    } on DioError catch (e) {
-      Alert.errorAlert(e, context);
     }
   }
 

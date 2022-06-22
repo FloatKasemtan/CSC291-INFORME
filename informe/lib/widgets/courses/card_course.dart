@@ -19,6 +19,7 @@ class CardCourse extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20.0),
         onTap: () {
+          print(course.id);
           Navigator.pushNamed(context, CourseInfo.routeName, arguments: {
             "id": course.id,
           });
@@ -70,7 +71,7 @@ class CardCourse extends StatelessWidget {
                                   Text(
                                     '${course.code} : ${course.name}',
                                     style: GoogleFonts.poppins(
-                                        fontSize: 24.0,
+                                        fontSize: 18.0,
                                         fontWeight: FontWeight.normal,
                                         color: getColor(index % 2)),
                                   ),

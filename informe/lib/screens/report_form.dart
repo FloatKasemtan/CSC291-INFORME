@@ -1,9 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:informe/models/course.dart';
 import 'package:informe/models/report.dart';
-import 'package:informe/models/user.dart';
 
 class ReportForm extends StatefulWidget {
   const ReportForm({Key? key, this.args}) : super(key: key);

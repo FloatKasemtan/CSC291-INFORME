@@ -12,14 +12,14 @@ Student _$StudentFromJson(Map<String, dynamic> json) {
     requiredKeys: const ['id'],
   );
   return Student(
-    id: json['id'] as String,
-    email: json['email'] as String? ?? "",
-    firstname: json['firstname'] as String? ?? "",
-    lastname: json['lastname'] as String? ?? "",
-    microsoftTeams: json['microsoftTeams'] as String? ?? "",
-    tel: json['tel'] as String? ?? "",
-    generation: json['generation'] as int?,
-    studentId: json['studentId'] as String?,
+    id: json['user']['id'] as String,
+    email: json['user']['email'] as String? ?? "",
+    firstname: json['user']['firstname'] as String? ?? "",
+    lastname: json['user']['lastname'] as String? ?? "",
+    microsoftTeams: json['user']['microsoftTeams'] ?? "",
+    tel: json['user']['tel'] as String? ?? "",
+    generation: json['generation'] as String?,
+    studentId: json['student_id'] as String?,
     year: json['year'] as int?,
     banchelor: json['banchelor'] as String,
   )..userType = $enumDecodeNullable(_$UserTypeEnumMap, json['userType']);

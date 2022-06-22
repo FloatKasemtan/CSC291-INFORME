@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +7,6 @@ import 'package:informe/services/api/user_service.dart';
 import 'package:informe/services/constants.dart';
 import 'package:informe/services/share_preference.dart';
 import 'package:informe/widgets/common/alert.dart';
-import 'package:informe/widgets/courses.dart';
-import 'package:informe/screens/get_start.dart';
-import 'package:informe/widgets/home.dart';
 import 'package:informe/widgets/sign_in/bottom_action.dart';
 import 'package:informe/widgets/sign_in/custom_textform.dart';
 import 'package:informe/widgets/sign_in/logo.dart';
@@ -86,7 +81,7 @@ class _SignInState extends State<SignIn> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Logo(),
+            const Logo(),
             SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               child: Column(

@@ -13,7 +13,7 @@ class DioInstance {
     try {
       dio = Dio(options);
     } catch (e) {
-      // print(e);
+      print(e);
     }
   }
 }

@@ -29,7 +29,6 @@ class _CourseInfoState extends State<CourseInfo> {
     try {
       final response = await CourseService.getCourse(widget.args!["id"]);
       if (response is InfoResponse) {
-        print(Course.fromJson(response.data).students![0].microsoftTeams);
         setState(() {
           course = Course.fromJson(response.data);
         });

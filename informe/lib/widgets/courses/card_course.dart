@@ -19,7 +19,6 @@ class CardCourse extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20.0),
         onTap: () {
-          print(course.id);
           Navigator.pushNamed(context, CourseInfo.routeName, arguments: {
             "id": course.id,
           });

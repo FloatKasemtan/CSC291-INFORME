@@ -22,7 +22,6 @@ Course _$CourseFromJson(Map<String, dynamic> json) {
     start: json['schedule']['start'] as String?,
     date: json['schedule']['day'] as String?,
     students: (json['students'] as List<dynamic>?)?.map((e) {
-          print(e['student']);
           return Student.fromJson(e['student'] as Map<String, dynamic>);
         }).toList() ??
         const [],

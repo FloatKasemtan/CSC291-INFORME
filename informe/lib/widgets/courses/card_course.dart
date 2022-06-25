@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/course.dart';
-import 'package:informe/models/report.dart';
 import 'package:informe/screens/course_info.dart';
-import 'package:informe/services/utils.dart';
 
 class CardCourse extends StatelessWidget {
   const CardCourse({Key? key, required this.course, required this.index})
@@ -136,7 +133,7 @@ class CardCourse extends StatelessWidget {
 
   LinearGradient getGradient(int i) {
     final linearGradientList = [
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -144,7 +141,7 @@ class CardCourse extends StatelessWidget {
           Color(0xffFF6464),
         ],
       ),
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -152,7 +149,7 @@ class CardCourse extends StatelessWidget {
           Color(0xffFE8817),
         ],
       ),
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -160,7 +157,7 @@ class CardCourse extends StatelessWidget {
           Color(0xffFCFF5B),
         ],
       ),
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -168,7 +165,7 @@ class CardCourse extends StatelessWidget {
           Color(0xff4ED193),
         ],
       ),
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
@@ -176,7 +173,7 @@ class CardCourse extends StatelessWidget {
           Color(0xff69C9F2),
         ],
       ),
-      LinearGradient(
+      const LinearGradient(
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [

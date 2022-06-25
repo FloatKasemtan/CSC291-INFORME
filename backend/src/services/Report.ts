@@ -75,33 +75,65 @@ export const listReported = async (req: Express.Request) => {
 	}
 };
 
-export const createReport = async (body: ReportModel) => {
+export const createReport = async (body: ReportModel, req: Express.Request) => {
 	try {
-		const report = await prisma.userReported.create({
-			data: {
-				status: "DRAFT",
-				topic: body.topic,
-				created_at: new Date(),
-				description: body.description,
-				sender: {
-					connect: {
-						id: body.sender_id,
-					},
-				},
-				user: {
-					connect: {
-						id: body.user_reported_id,
-					},
-				},
-				course: {
-					connect: {
-						id: body.course_id,
-					},
-				},
+		const sender = await prisma.user.findFirst({
+			where: {
+				id: req.user.id,
+			},
+			include: {
+				Student: true,
 			},
 		});
+		const checkReport = await prisma.userReported.findFirst({
+			where: {
+				sender: {
+					user_id: req.user.id,
+				},
+				user_id: body.user_reported_id,
+				course_id: body.course_id,
+				status: "DRAFT",
+			},
+		});
+		if (!checkReport) {
+			const report = await prisma.userReported.create({
+				data: {
+					status: "DRAFT",
+					topic: body.topic,
+					created_at: new Date(),
+					description: body.description,
+					course: {
+						connect: {
+							id: body.course_id,
+						},
+					},
+					sender: {
+						connect: {
+							id: sender.Student.id,
+						},
+					},
+					user: {
+						connect: {
+							id: body.user_reported_id,
+						},
+					},
+				},
+			});
 
-		return infoResponse(report, "User Reported", HttpStatus.OK);
+			return infoResponse(report, "User Reported", HttpStatus.OK);
+		}
+		await prisma.userReported.update({
+			where: {
+				id: checkReport.id,
+			},
+			data: {
+				updated_at: new Date(),
+				description: body.description,
+				topic: body.topic,
+				status: body.status,
+			},
+		});
+		return infoResponse(checkReport, "Editing", HttpStatus.OK);
 	} catch (error) {
 		console.log(error.message);
 
@@ -109,32 +141,42 @@ export const createReport = async (body: ReportModel) => {
 	}
 };
 
-export const getReport = async (report_id: string, req: Express.Request) => {
+export const getReport = async (body: ReportModel, req: Express.Request) => {
 	try {
+		// const report = await prisma.userReported.findFirst({
+		// 	include: {
+		// 		sender: true,
+		// 	},
+		// 	where: {
+		// 		AND: [
+		// 			{
+		// 				id: report_id,
+		// 			},
+		// 			{
+		// 				sender: {
+		// 					OR: [
+		// 						// if user is advisor of sender
+		// 						{
+		// 							advisor: {
+		// 								user_id: req.user.id,
+		// 							},
+		// 						},
+		// 						// if user is sender
+		// 						{ user_id: req.user.id },
+		// 					],
+		// 				},
+		// 			},
+		// 		],
+		// 	},
+		// });
 		const report = await prisma.userReported.findFirst({
-			include: {
-				sender: true,
-			},
 			where: {
-				AND: [
-					{
-						id: report_id,
-					},
-					{
-						sender: {
-							OR: [
-								// if user is advisor of sender
-								{
-									advisor: {
-										user_id: req.user.id,
-									},
-								},
-								// if user is sender
-								{ user_id: req.user.id },
-							],
-						},
-					},
-				],
+				sender: {
+					user_id: req.user.id,
+				},
+				user_id: body.user_reported_id,
+				course_id: body.course_id,
+				status: "DRAFT",
 			},
 		});
 		console.log(report);
@@ -144,15 +186,21 @@ export const getReport = async (report_id: string, req: Express.Request) => {
 	}
 };
 
-export const updateReport = async (
-	report_id: string,
-	body: ReportModel,
-	req: Express.Request
-) => {
+export const updateReport = async (body: ReportModel, req: Express.Request) => {
 	try {
+		const checkReport = await prisma.userReported.findFirst({
+			where: {
+				sender: {
+					user_id: req.user.id,
+				},
+				user_id: body.user_reported_id,
+				course_id: body.course_id,
+				status: "DRAFT",
+			},
+		});
 		await prisma.userReported.update({
 			where: {
-				id: report_id,
+				id: checkReport.id,
 			},
 			data: {
 				updated_at: new Date(),

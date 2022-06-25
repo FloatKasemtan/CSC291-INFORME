@@ -172,6 +172,7 @@ class _CourseInfoState extends State<CourseInfo> {
             body: Center(
               child: CircularProgressIndicator(),
             ),
+            backgroundColor: Color(0xff434465),
           )
         : Scaffold(
             appBar: AppBar(

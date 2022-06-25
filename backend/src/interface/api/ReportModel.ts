@@ -7,7 +7,6 @@
 export interface ReportModel {
 	topic: string;
 	description: string;
-	sender_id: string;
 	user_reported_id: string;
 	course_id: string;
 	status: Status;

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:informe/models/response/info_response.dart';
-import 'package:informe/models/student.dart';
 import 'package:informe/services/api/user_service.dart';
 import 'package:informe/services/constants.dart';
 import 'package:informe/services/share_preference.dart';
@@ -27,12 +26,12 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     getProfile();
+    super.initState();
   }
 
   void getProfile() async {
+    print(SharePreference.prefs.getBool(SharePreferenceConstants.isLecturer));
     try {
       final response = await UserService.getProfile();
       if (response is InfoResponse) {

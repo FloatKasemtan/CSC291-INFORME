@@ -1,10 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:informe/models/response/info_response.dart';
-import 'package:informe/services/api/user_service.dart';
-import 'package:informe/services/share_preference.dart';
-import 'package:informe/widgets/common/alert.dart';
 
 class CustomTextForm extends StatefulWidget {
   const CustomTextForm({Key? key, required this.email, required this.password})

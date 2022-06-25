@@ -4,10 +4,6 @@ import 'package:informe/models/response/info_response.dart';
 import 'package:informe/services/api/course_service.dart';
 import 'package:informe/widgets/common/alert.dart';
 import '../models/course.dart';
-import 'package:informe/models/report.dart';
-import 'package:informe/models/user.dart';
-import 'package:informe/screens/course_info.dart';
-import 'package:informe/screens/report_form.dart';
 import 'package:informe/widgets/courses/card_course.dart';
 
 class Courses extends StatefulWidget {

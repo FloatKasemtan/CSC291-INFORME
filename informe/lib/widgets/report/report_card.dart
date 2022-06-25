@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/screens/report_description.dart';
+import 'package:informe/screens/report_form.dart';
 import 'package:informe/services/utils.dart';
 
 class ReportCard extends StatelessWidget {
-  const ReportCard({Key? key, required this.reportModel}) : super(key: key);
+  const ReportCard(
+      {Key? key, required this.reportModel, required this.handleReport})
+      : super(key: key);
   final ReportModel reportModel;
+  final Function handleReport;
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +107,11 @@ class ReportCard extends StatelessWidget {
 
   navigateHandler(ReportModel reportModel, BuildContext context) {
     if (reportModel.status == Status.draft) {
-      Navigator.pushNamed(context, "/report-form",
-          arguments: {"reportModel": reportModel});
+      Navigator.pushNamed(context, ReportForm.routeName,
+              arguments: {"reportModel": reportModel})
+          .then((value) => handleReport());
     } else {
-      Navigator.pushNamed(context, "/report-info",
+      Navigator.pushNamed(context, ReportInfo.routeName,
           arguments: {"reportModel": reportModel});
     }
   }

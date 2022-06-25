@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
             args: ModalRoute.of(context)!.settings.arguments
                 as Map<String, dynamic>),
         SignIn.routeName: (context) => const SignIn(),
-        GetStart.routeName: (context) => GetStart(),
+        GetStart.routeName: (context) => const GetStart(),
         ReportForm.routeName: (context) => ReportForm(
             args: ModalRoute.of(context)!.settings.arguments
                 as Map<String, dynamic>),

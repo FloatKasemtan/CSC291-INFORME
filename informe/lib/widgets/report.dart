@@ -41,7 +41,6 @@ class _ReportState extends State<Report> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     handleReport();
   }
@@ -58,9 +57,8 @@ class _ReportState extends State<Report> {
                 style: Theme.of(context).textTheme.headline1,
               ),
               ...data
-                  .map((e) => ReportCard(
-                        reportModel: e,
-                      ))
+                  .map((e) =>
+                      ReportCard(reportModel: e, handleReport: handleReport))
                   .toList()
             ]),
     );

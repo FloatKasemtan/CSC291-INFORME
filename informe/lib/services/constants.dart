@@ -1,5 +1,5 @@
 class Constants {
-  static const url = "http://localhost:8080";
+  static const url = "http://127.0.0.1:8080";
 }
 
 class SharePreferenceConstants {

@@ -1,6 +1,4 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 class Counter with ChangeNotifier, DiagnosticableTreeMixin {
   int _count = 0;

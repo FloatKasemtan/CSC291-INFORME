@@ -16,7 +16,8 @@ User _$UserFromJson(Map<String, dynamic> json) {
     firstname: json['firstname'] as String?,
     id: json['id'] as String,
     lastname: json['lastname'] as String?,
-    userType: $enumDecodeNullable(_$UserTypeEnumMap, json['userType']),
+    userType: $enumDecodeNullable(
+        _$UserTypeEnumMap, json['type'].toString().toLowerCase()),
     microsoftTeams: json['microsoftTeams'] as String?,
     tel: json['tel'] as String?,
   );

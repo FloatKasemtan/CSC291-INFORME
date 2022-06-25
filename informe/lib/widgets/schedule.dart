@@ -7,12 +7,12 @@ class Schedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const UnderConstruction(),
+        children: const [
+          UnderConstruction(),
         ],
       ),
     );

@@ -6,8 +6,8 @@ part 'report.g.dart';
 
 @JsonSerializable()
 class ReportModel {
-  String topic;
-  String description;
+  String topic = "";
+  String description = "";
   final Course course;
   final User user;
   Status status;

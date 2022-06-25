@@ -38,12 +38,11 @@ class _SignInState extends State<SignIn> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     if (SharePreference.prefs.getString(SharePreferenceConstants.token) !=
         null) {
       getProfile();
     }
+    super.initState();
   }
 
   void loginHandler() async {

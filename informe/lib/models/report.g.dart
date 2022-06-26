@@ -7,6 +7,7 @@ part of 'report.dart';
 // **************************************************************************
 
 ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
+      id: json['id'] as String? ?? "",
       topic: json['topic'] as String? ?? "",
       status: $enumDecodeNullable(
               _$StatusEnumMap, json['status'].toString().toLowerCase()) ??
@@ -18,6 +19,7 @@ ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
 
 Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'topic': instance.topic,
       'description': instance.description,
       'course': instance.course,

@@ -2,7 +2,7 @@
 import { PrismaClient } from "@prisma/client";
 
 /** Models */
-import { ReportModel } from "@/interface/api/ReportModel";
+import { ReportModel, UpdateReport } from "@/interface/api/ReportModel";
 
 /** Utils */
 import HttpStatus from "@/utils/httpStatus";
@@ -28,6 +28,7 @@ export const listReported = async (req: Express.Request) => {
 				created_at: true,
 				status: true,
 				topic: true,
+				description: true,
 				updated_at: true,
 				user: {
 					select: {
@@ -206,6 +207,23 @@ export const updateReport = async (body: ReportModel, req: Express.Request) => {
 				updated_at: new Date(),
 				description: body.description,
 				topic: body.topic,
+				status: body.status,
+			},
+		});
+		return infoResponse(null, "Report updated", HttpStatus.OK);
+	} catch (error) {
+		return genericError(error.message, HttpStatus.BAD_REQUEST);
+	}
+};
+
+export const lecturerViewReport = async (body: UpdateReport) => {
+	try {
+		await prisma.userReported.update({
+			where: {
+				id: body.id,
+			},
+			data: {
+				updated_at: new Date(),
 				status: body.status,
 			},
 		});

@@ -29,3 +29,8 @@ enum Status {
 	VIEWED = "VIEWED",
 	APPROVED = "APPROVED",
 }
+
+export interface UpdateReport {
+	id: string;
+	status: Status;
+}

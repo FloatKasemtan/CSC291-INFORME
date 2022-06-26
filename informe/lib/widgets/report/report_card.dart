@@ -1,9 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/models/response/info_response.dart';
 import 'package:informe/screens/report_description.dart';
 import 'package:informe/screens/report_form.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
 import 'package:informe/services/utils.dart';
+import 'package:informe/widgets/common/alert.dart';
+
+import '../../services/api/report_service.dart';
 
 class ReportCard extends StatelessWidget {
   const ReportCard(
@@ -28,6 +35,25 @@ class ReportCard extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(15),
             onTap: () => navigateHandler(reportModel, context),
+            onLongPress: () {
+              if (reportModel.status == Status.draft) {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                      title: const Text(
+                          'Are you sure, you want to delete the form?'),
+                      actions: [
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.red[700]),
+                            onPressed: () {
+                              deleteReportForm(context);
+                            },
+                            child: const Text('Delete'))
+                      ]),
+                );
+              }
+            },
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -111,8 +137,38 @@ class ReportCard extends StatelessWidget {
               arguments: {"reportModel": reportModel})
           .then((value) => handleReport());
     } else {
+      onLecturerView(context);
       Navigator.pushNamed(context, ReportInfo.routeName,
-          arguments: {"reportModel": reportModel});
+              arguments: {"reportModel": reportModel})
+          .then((value) => handleReport());
+    }
+  }
+
+  void onLecturerView(BuildContext context) {
+    try {
+      if (SharePreference.prefs.getBool(SharePreferenceConstants.isLecturer)! &&
+          reportModel.status == Status.sent) {
+        ReportService.lecturerView(
+            reportModel.id, Utils.getStatus(Status.viewed));
+      }
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    }
+  }
+
+  void deleteReportForm(BuildContext context) async {
+    try {
+      final response = await ReportService.deleteReport(reportModel.id);
+      if (response is InfoResponse) {
+        Alert.successAlert(response, "Form Deleted", () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }, context);
+      }
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    } finally {
+      handleReport();
     }
   }
 }

@@ -57,4 +57,32 @@ class ReportService {
     }
     return InfoResponse.fromJson(response.data);
   }
+
+  static Future<dynamic> lecturerView(String id, String status) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response =
+        await DioInstance.dio.patch("/report/lecturer-view", data: {
+      "id": id,
+      "status": status,
+    });
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> deleteReport(String id) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio.delete('/report/$id');
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
 }

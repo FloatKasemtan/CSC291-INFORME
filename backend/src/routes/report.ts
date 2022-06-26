@@ -2,7 +2,7 @@
 import express from "express";
 
 /** Models */
-import { ReportModel } from "@/interface/api/ReportModel";
+import { ReportModel, UpdateReport } from "@/interface/api/ReportModel";
 
 /** Services */
 import { responseHandler } from "@/services/Handler";
@@ -10,6 +10,7 @@ import {
 	createReport,
 	deleteReport,
 	getReport,
+	lecturerViewReport,
 	listReported,
 	updateReport,
 } from "@/services/Report";
@@ -36,12 +37,22 @@ reportRoute.post("/check", async (req, res) => {
 	return responseHandler(res, await getReport(body, req));
 });
 
-reportRoute.use("/:id", isReportAuthorized);
+// reportRoute.use("/lecturer", isReportAuthorized);
 
 // update a report information (when submitted)
 reportRoute.patch("/", async (req, res) => {
 	const body: ReportModel = req.body;
+	console.log(body);
+
 	return responseHandler(res, await updateReport(body, req));
+});
+
+// update report status
+reportRoute.patch("/lecturer-view", async (req, res) => {
+	const body: UpdateReport = req.body;
+	console.log(body);
+
+	return responseHandler(res, await lecturerViewReport(body));
 });
 
 // delete a report

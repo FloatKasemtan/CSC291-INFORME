@@ -1,5 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:informe/models/report.dart';
+import 'package:informe/services/api/report_service.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/share_preference.dart';
+import 'package:informe/services/utils.dart';
+import 'package:informe/widgets/common/alert.dart';
 
 class ReportInfo extends StatelessWidget {
   const ReportInfo({Key? key, this.args}) : super(key: key);
@@ -105,8 +111,33 @@ class ReportInfo extends StatelessWidget {
               ),
             ),
           ),
+          SharePreference.prefs.getBool(SharePreferenceConstants.isLecturer)!
+              ? Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(primary: Color(0xff72BC8E)),
+                      onPressed: () {
+                        onLecturerApproved(context);
+                      },
+                      child: const Text(
+                        'Approved',
+                      )),
+                )
+              : Container()
         ]),
       ),
     );
+  }
+
+  onLecturerApproved(BuildContext context) async {
+    ReportModel reportModel = args!["reportModel"];
+    try {
+      await ReportService.lecturerView(
+          reportModel.id, Utils.getStatus(Status.approved));
+    } on DioError catch (e) {
+      Alert.errorAlert(e, context);
+    }
   }
 }

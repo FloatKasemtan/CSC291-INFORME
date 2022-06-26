@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
   }
 
   void getProfile() async {
-    print(SharePreference.prefs.getBool(SharePreferenceConstants.isLecturer));
     try {
       final response = await UserService.getProfile();
       if (response is InfoResponse) {

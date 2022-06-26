@@ -1,4 +1,5 @@
 import 'package:informe/models/report.dart';
+import 'package:informe/services/utils.dart';
 
 class CreateReportModel {
   final String topic;
@@ -18,8 +19,8 @@ class CreateReportModel {
     return CreateReportModel(
       topic: report.topic,
       description: report.description,
-      userReportedId: report.user.id,
-      courseId: report.course.id!,
+      userReportedId: report.user!.id,
+      courseId: report.course!.id!,
       status: report.status,
     );
   }
@@ -30,24 +31,7 @@ class CreateReportModel {
       'description': description,
       'user_reported_id': userReportedId,
       'course_id': courseId,
-      'status': getStatus(status!),
+      'status': Utils.getStatus(status!),
     };
-  }
-
-  String getStatus(Status status) {
-    switch (status) {
-      case Status.approved:
-        return "APPROVED";
-      case Status.draft:
-        return "DRAFT";
-      case Status.empty:
-        return "EMPTY";
-      case Status.sent:
-        return "SENT";
-      case Status.viewed:
-        return "VIEWED";
-      default:
-        return "";
-    }
   }
 }

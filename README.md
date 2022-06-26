@@ -20,3 +20,4 @@ This project was created to let students anonymously report and request anything
 
 Due to a deadline, this project took around a month to complete. So the code quality could be a bit SH*T KEK
 
+![rice-shower-uma-musume](https://user-images.githubusercontent.com/69688279/175812007-cdbbe024-63fc-427f-af6b-d8bc2292588c.gif)

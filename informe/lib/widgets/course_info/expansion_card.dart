@@ -20,7 +20,7 @@ class ExpansionCard extends StatelessWidget {
         title: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
-            "Contract",
+            "Contact",
             style: Theme.of(context)
                 .textTheme
                 .subtitle1

@@ -24,6 +24,30 @@ class _CourseInfoState extends State<CourseInfo> {
   late Course course;
   String dropdownValue = 'None';
   bool isLoading = true;
+  List<Student> students = [];
+
+  void handleSort() {
+    if (dropdownValue == 'Name') {
+      List<Student> temp = course.students!;
+      temp.sort((a, b) => (a.firstname! + " " + a.lastname!)
+          .compareTo(b.firstname! + " " + b.lastname!));
+      print(temp);
+      setState(() {
+        students = temp;
+      });
+    } else if (dropdownValue == 'ID') {
+      List<Student> temp = course.students!;
+      temp.sort((a, b) => (b.id).compareTo(a.id));
+      print(temp);
+      setState(() {
+        students = temp;
+      });
+    } else {
+      setState(() {
+        students = course.students!;
+      });
+    }
+  }
 
   void handleCourse() async {
     try {
@@ -31,6 +55,7 @@ class _CourseInfoState extends State<CourseInfo> {
       if (response is InfoResponse) {
         setState(() {
           course = Course.fromJson(response.data);
+          students = course.students!;
         });
       }
     } on DioError catch (e) {
@@ -44,8 +69,8 @@ class _CourseInfoState extends State<CourseInfo> {
 
   @override
   void initState() {
-    super.initState();
     handleCourse();
+    super.initState();
   }
 
   void moreInfoHandler(Student student) {
@@ -123,7 +148,7 @@ class _CourseInfoState extends State<CourseInfo> {
   }
 
   List<Widget> buildStudentList() {
-    return course.students!.map((student) {
+    return students.map((student) {
       return ListTile(
         title: Text(student.firstname! + " " + student.lastname!,
             overflow: TextOverflow.ellipsis,
@@ -255,6 +280,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
+                                onTap: handleSort,
                                 child: Row(
                                   children: [
                                     const Icon(

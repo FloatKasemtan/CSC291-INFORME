@@ -16,6 +16,8 @@ import 'package:informe/services/provider.dart';
 import 'package:informe/widgets/common/navigation_bar.dart';
 import 'package:provider/provider.dart';
 
+// TODO: IMPLEMENT SORT
+
 void main() {
   runApp(
     /// Providers are above [MyApp] instead of inside it, so that tests
@@ -63,7 +65,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Informe',
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,

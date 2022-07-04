@@ -1,0 +1,88 @@
+import 'package:informe/models/report.dart';
+import 'package:informe/models/request/create_report_model.dart';
+import 'package:informe/models/response/error_response.dart';
+import 'package:informe/models/response/info_response.dart';
+import 'package:informe/services/constants.dart';
+import 'package:informe/services/dio.dart';
+import 'package:informe/services/share_preference.dart';
+
+class ReportService {
+  static Future<dynamic> getReportedList() async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio.get('/report');
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> getReport(ReportModel data) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio.post('/report/check',
+        data: CreateReportModel.fromReport(data).toJson());
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> createReport(ReportModel data) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio
+        .post('/report', data: CreateReportModel.fromReport(data).toJson());
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> sendReport(ReportModel data) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio
+        .patch('/report', data: CreateReportModel.fromReport(data).toJson());
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> lecturerView(String id, String status) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response =
+        await DioInstance.dio.patch("/report/lecturer-view", data: {
+      "id": id,
+      "status": status,
+    });
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+
+  static Future<dynamic> deleteReport(String id) async {
+    DioInstance.dio.options.headers["authorization"] = "Bearer " +
+        SharePreference.prefs
+            .getString(SharePreferenceConstants.token)
+            .toString();
+    final response = await DioInstance.dio.delete('/report/$id');
+    if (response.statusCode != 200) {
+      return ErrorResponse.fromJson(response.data);
+    }
+    return InfoResponse.fromJson(response.data);
+  }
+}

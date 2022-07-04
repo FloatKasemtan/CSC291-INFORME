@@ -1,0 +1,101 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  email          String
+  microsoft_team String?
+  tel            String?
+  password       String
+  firstname      String
+  lastname       String
+  type           UserType
+  Student        Student?       @relation("StudentOnUser")
+  Lecturer       Lecturer?      @relation("LecturerOnUser")
+  UserReported   UserReported[] @relation("UserReportedOnUser")
+}
+
+model UserClass {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  student_id String  @db.ObjectId
+  student    Student @relation(references: [id], fields: [student_id])
+  course_id  String  @db.ObjectId
+  course     Course  @relation(references: [id], fields: [course_id])
+}
+
+model Course {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  code         String
+  schedule     Schedule
+  lecturer_id  String         @db.ObjectId
+  lecturer     Lecturer       @relation(references: [id], fields: [lecturer_id], name: "CourseOnLecturer")
+  UserClass    UserClass[]
+  UserReported UserReported[] @relation("UserReportedOnCourse")
+}
+
+model Student {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  student_id   String         @unique
+  user_id      String         @unique @db.ObjectId
+  user         User           @relation(references: [id], fields: [user_id], name: "StudentOnUser")
+  banchelor    String
+  year         Int
+  generation   String
+  advisor_id   String         @db.ObjectId
+  advisor      Lecturer       @relation(references: [id], fields: [advisor_id], name: "StudentOnLecturer")
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now())
+  UserReported UserReported[] @relation("UserReportedOnStudent")
+  UserClass    UserClass[]
+}
+
+model Lecturer {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user_id    String    @unique @db.ObjectId
+  user       User      @relation(references: [id], fields: [user_id], name: "LecturerOnUser")
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  Student    Student[] @relation("StudentOnLecturer")
+  Course     Course[]  @relation("CourseOnLecturer")
+}
+
+model UserReported {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user_id     String   @db.ObjectId
+  user        User     @relation(references: [id], fields: [user_id], name: "UserReportedOnUser")
+  sender_id   String   @db.ObjectId
+  sender      Student  @relation(references: [id], fields: [sender_id], name: "UserReportedOnStudent")
+  course_id   String   @db.ObjectId
+  course      Course   @relation(references: [id], fields: [course_id], name: "UserReportedOnCourse")
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  topic       String
+  description String
+  status      Status
+}
+
+enum UserType {
+  STUDENT
+  LECTURER
+}
+
+enum Status {
+  DRAFT
+  SENT
+  VIEWED
+  APPROVED
+}
+
+type Schedule {
+  day   String
+  start String
+  end   String
+}

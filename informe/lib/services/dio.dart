@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:informe/widgets/common/alert.dart';
 import 'constants.dart';
 
 class DioInstance {
@@ -7,12 +8,12 @@ class DioInstance {
     var options = BaseOptions(
       baseUrl: Constants.url,
       contentType: 'application/json',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: 10000,
+      receiveTimeout: 5000,
     );
     try {
       dio = Dio(options);
-    } catch (e) {
+    } on DioError catch (e) {
       print(e);
     }
   }

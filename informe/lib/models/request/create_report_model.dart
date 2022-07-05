@@ -19,8 +19,8 @@ class CreateReportModel {
     return CreateReportModel(
       topic: report.topic,
       description: report.description,
-      userReportedId: report.user!.id,
-      courseId: report.course!.id!,
+      userReportedId: report.user.id,
+      courseId: report.course.id!,
       status: report.status,
     );
   }

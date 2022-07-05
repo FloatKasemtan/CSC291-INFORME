@@ -50,13 +50,13 @@ export const login = async (email: string, password: string) => {
 	}
 };
 
-export const getUser = async (user_id) => {
+export const getUser = async (req: Express.Request) => {
 	try {
 		// fetch user info from db
 		// unauthenticated user
 		const user = await prisma.user.findFirst({
 			where: {
-				id: user_id,
+				id: req.user.id,
 			},
 			select: {
 				email: true,

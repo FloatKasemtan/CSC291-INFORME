@@ -1,5 +1,5 @@
 class Constants {
-  static const url = "https://ae43-202-28-7-166.ap.ngrok.io";
+  static const url = "https://informe.devsirawit.com";
 }
 
 class SharePreferenceConstants {

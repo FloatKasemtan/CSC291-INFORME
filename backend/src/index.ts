@@ -142,7 +142,7 @@ app.get("/", async (req, res) => {
 	// await prisma.userClass.createMany({
 	// 	data: [{ course_id: "", student_id: "" }],
 	// });
-	return res.send("It works 🚀");
+	return res.send("It works as we expected! 🚀");
 });
 
 app.get("/faker/lecturer", async (req, res) => {

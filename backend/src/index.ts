@@ -139,9 +139,9 @@ app.get("/", async (req, res) => {
 	// 	})
 	// 	.catch((...e) => console.log(...e));
 	// return res.json(users);
-	await prisma.userClass.createMany({
-		data: [{ course_id: "", student_id: "" }],
-	});
+	// await prisma.userClass.createMany({
+	// 	data: [{ course_id: "", student_id: "" }],
+	// });
 	return res.send("It works 🚀");
 });
 

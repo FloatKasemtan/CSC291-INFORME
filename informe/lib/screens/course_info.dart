@@ -69,8 +69,8 @@ class _CourseInfoState extends State<CourseInfo> {
 
   @override
   void initState() {
-    handleCourse();
     super.initState();
+    handleCourse();
   }
 
   void moreInfoHandler(Student student) {

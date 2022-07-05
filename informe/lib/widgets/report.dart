@@ -41,8 +41,8 @@ class _ReportState extends State<Report> {
 
   @override
   void initState() {
-    handleReport();
     super.initState();
+    handleReport();
   }
 
   @override

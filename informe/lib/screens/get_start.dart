@@ -16,11 +16,11 @@ class GetStart extends StatefulWidget {
 class _GetStartState extends State<GetStart> {
   @override
   void initState() {
+    super.initState();
     if (SharePreference.prefs.getString(SharePreferenceConstants.isFirst) !=
         null) {
       Navigator.pushReplacementNamed(context, SignIn.routeName);
     }
-    super.initState();
   }
 
   @override

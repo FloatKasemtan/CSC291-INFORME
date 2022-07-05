@@ -90,11 +90,11 @@ class _ReportFormState extends State<ReportForm> {
 
   @override
   void initState() {
+    super.initState();
     setState(() {
       reportModel = widget.args!['reportModel'];
     });
     checkReport();
-    super.initState();
   }
 
   @override

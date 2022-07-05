@@ -26,8 +26,8 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    getProfile();
     super.initState();
+    getProfile();
   }
 
   void getProfile() async {

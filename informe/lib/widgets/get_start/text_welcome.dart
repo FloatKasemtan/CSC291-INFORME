@@ -36,7 +36,7 @@ class TextWelcome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "This app is Lorem Ipsum simply dummy text of the printing and typesetting industry.",
+                  "Learn with no worried with Informe.",
                   maxLines: 4, // you can change it accordingly
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(

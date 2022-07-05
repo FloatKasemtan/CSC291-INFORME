@@ -68,13 +68,22 @@ export const listReported = async (req: Express.Request) => {
 						],
 					},
 					{
-						user: {
-							Student: {
-								advisor: {
-									user_id: req.user.id,
+						AND: [
+							{
+								user: {
+									Student: {
+										advisor: {
+											user_id: req.user.id,
+										},
+									},
 								},
 							},
-						},
+							{
+								status: {
+									not: "DRAFT",
+								},
+							},
+						],
 					},
 				],
 			},

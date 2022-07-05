@@ -145,6 +145,22 @@ app.get("/", async (req, res) => {
 	return res.send("It works as we expected, yeah! 🚀");
 });
 
+app.get("/faker/joinclass", async (req, res) => {
+	await prisma.userClass.createMany({
+		data: [
+			{
+				course_id: "62a46565281215e4b20eab61",
+				student_id: "62a465dfd86db126ecae8dd8",
+			},
+			{
+				course_id: "62a46565281215e4b20eab61",
+				student_id: "62c317cad84f753b9df9ec01",
+			},
+		],
+	});
+	return res.json("ok");
+});
+
 app.get("/faker/lecturer", async (req, res) => {
 	const lecturers = await prisma.user.create({
 		data: {

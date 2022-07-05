@@ -104,41 +104,44 @@ app.get("/", async (req, res) => {
 	// 		},
 	// 	})
 	// 	.catch((...e) => console.log(...e));
-	const users = await prisma.user
-		.create({
-			data: {
-				firstname: "John",
-				lastname: "Doe",
-				email: "sirawit.cssit@mail.kmutt.ac.th",
-				password: "123456",
-				type: "STUDENT",
-				Student: {
-					create: {
-						student_id:
-							"630500" +
-							faker.datatype.number({ min: 100, max: 999 }),
-						year: 2,
-						banchelor: faker.name.jobTitle(),
-						generation: "SIT12",
-						advisor: {
-							create: {
-								user: {
-									create: {
-										email: "Lecturer@mail.com",
-										firstname: "Sarah",
-										lastname: "Doe",
-										password: "12345678",
-										type: "LECTURER",
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		})
-		.catch((...e) => console.log(...e));
-	return res.json(users);
+	// const users = await prisma.user
+	// 	.create({
+	// 		data: {
+	// 			firstname: "John",
+	// 			lastname: "Doe",
+	// 			email: "sirawit.cssit@mail.kmutt.ac.th",
+	// 			password: "123456",
+	// 			type: "STUDENT",
+	// 			Student: {
+	// 				create: {
+	// 					student_id:
+	// 						"630500" +
+	// 						faker.datatype.number({ min: 100, max: 999 }),
+	// 					year: 2,
+	// 					banchelor: faker.name.jobTitle(),
+	// 					generation: "SIT12",
+	// 					advisor: {
+	// 						create: {
+	// 							user: {
+	// 								create: {
+	// 									email: "Lecturer@mail.com",
+	// 									firstname: "Sarah",
+	// 									lastname: "Doe",
+	// 									password: "12345678",
+	// 									type: "LECTURER",
+	// 								},
+	// 							},
+	// 						},
+	// 					},
+	// 				},
+	// 			},
+	// 		},
+	// 	})
+	// 	.catch((...e) => console.log(...e));
+	// return res.json(users);
+	await prisma.userClass.createMany({
+		data: [{ course_id: "", student_id: "" }],
+	});
 	return res.send("It works 🚀");
 });
 
@@ -230,7 +233,7 @@ app.get("/faker/student", async (req, res) => {
 							},
 						},
 						generation: "SIT13",
-						year: 3,
+						year: faker.datatype.number({ min: 1, max: 4 }),
 						UserClass: {
 							create: {
 								course_id: "62a46567281215e4b20eab64",

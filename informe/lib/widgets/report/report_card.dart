@@ -109,7 +109,7 @@ class ReportCard extends StatelessWidget {
                             Utils.capitalize(reportModel.status.name),
                             style: GoogleFonts.poppins(
                                 color: getColor(reportModel.status.index),
-                                fontSize: 16),
+                                fontSize: 14),
                           )
                   ],
                 ),

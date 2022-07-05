@@ -40,7 +40,7 @@ class ExpansionCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Microsoft Team: ${course.lecturer!.microsoftTeams}",
+                  "Microsoft Team: ${course.lecturer!.microsoftTeams ?? '-'}",
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
@@ -56,7 +56,7 @@ class ExpansionCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Tel: ${course.lecturer!.tel}",
+                  "Tel: ${course.lecturer!.tel ?? '-'}",
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!

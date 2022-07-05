@@ -30,7 +30,7 @@ class _GetStartState extends State<GetStart> {
         body: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("background.png"),
+                  image: AssetImage("assets/background.png"),
                   fit: BoxFit.cover,
                   opacity: 0.25),
             ),

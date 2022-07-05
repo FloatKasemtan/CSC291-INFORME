@@ -65,73 +65,74 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    _email.text = 'Bartholome.Sporer@yahoo.com';
-    _password.text = 'XwdwwU2Bj_bMYBw';
     return Scaffold(
       backgroundColor: const Color(0xFF161D3A),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/background.png"),
-              fit: BoxFit.cover,
-              opacity: 0.25),
-        ),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Logo(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomTextForm(email: _email, password: _password),
-                  // SizedBox(
-                  //   height: 50,
-                  // ),
-                  ElevatedButton(
-                    onPressed: () {
-                      loginHandler();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                    child: Ink(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Color(0xFF00B5FF),
-                            Color(0xFF07A0FF),
-                            Color(0xFF2D55E2),
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text(
-                          "Log in",
-                          style: GoogleFonts.poppins(fontSize: 18),
-                          textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/background.png"),
+                fit: BoxFit.cover,
+                opacity: 0.25),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Logo(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomTextForm(email: _email, password: _password),
+                    // SizedBox(
+                    //   height: 50,
+                    // ),
+                    ElevatedButton(
+                      onPressed: () {
+                        loginHandler();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
                         ),
                       ),
+                      child: Ink(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Color(0xFF00B5FF),
+                              Color(0xFF07A0FF),
+                              Color(0xFF2D55E2),
+                            ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text(
+                            "Log in",
+                            style: GoogleFonts.poppins(fontSize: 18),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  // SizedBox(
-                  //   height: 50,
-                  // ),
-                  const BottomAction()
-                ],
-              ),
-            )
-          ],
+                    // SizedBox(
+                    //   height: 50,
+                    // ),
+                    const BottomAction()
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

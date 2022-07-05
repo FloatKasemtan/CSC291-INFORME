@@ -9,8 +9,6 @@ class TextWelcome extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         top: 180,
-        right: 25,
-        left: 25,
       ),
       child: Column(
         children: [

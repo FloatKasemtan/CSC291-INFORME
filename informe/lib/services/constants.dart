@@ -1,5 +1,5 @@
 class Constants {
-  static const url = "http://127.0.0.1:8080";
+  static const url = "https://ae43-202-28-7-166.ap.ngrok.io";
 }
 
 class SharePreferenceConstants {
